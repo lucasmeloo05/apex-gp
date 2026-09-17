@@ -72,9 +72,12 @@ public class PlayerCarController : MonoBehaviour
 
     private void HandleEngine()
     {
+        // A frente REAL da sprite é para baixo
+        Vector2 forward = -transform.up;
+
         float forwardSpeed = Vector2.Dot(
             rb.linearVelocity,
-            transform.up
+            forward
         );
 
         // =========================
@@ -85,7 +88,7 @@ public class PlayerCarController : MonoBehaviour
         {
             if (forwardSpeed < maxSpeed)
             {
-                rb.AddForce(transform.up * acceleration);
+                rb.AddForce(forward * acceleration);
             }
 
             return;
@@ -100,14 +103,14 @@ public class PlayerCarController : MonoBehaviour
             // Ainda está andando para frente -> freia
             if (forwardSpeed > 0.1f)
             {
-                rb.AddForce(-transform.up * braking);
+                rb.AddForce(-forward * braking);
             }
             // Parado ou andando para trás -> ré
             else
             {
                 if (forwardSpeed > -reverseSpeed)
                 {
-                    rb.AddForce(-transform.up * acceleration);
+                    rb.AddForce(-forward * acceleration);
                 }
             }
         }
@@ -127,16 +130,18 @@ public class PlayerCarController : MonoBehaviour
 
     private void LimitSpeed()
     {
+        Vector2 forward = -transform.up;
+
         Vector2 forwardVelocity =
-            transform.up *
-            Vector2.Dot(rb.linearVelocity, transform.up);
+            forward *
+            Vector2.Dot(rb.linearVelocity, forward);
 
         Vector2 lateralVelocity =
             transform.right *
             Vector2.Dot(rb.linearVelocity, transform.right);
 
         float signedForwardSpeed =
-            Vector2.Dot(rb.linearVelocity, transform.up);
+            Vector2.Dot(rb.linearVelocity, forward);
 
         // =========================
         // LIMITE PARA FRENTE
@@ -144,7 +149,7 @@ public class PlayerCarController : MonoBehaviour
 
         if (signedForwardSpeed > maxSpeed)
         {
-            forwardVelocity = transform.up * maxSpeed;
+            forwardVelocity = forward * maxSpeed;
         }
 
         // =========================
@@ -153,7 +158,7 @@ public class PlayerCarController : MonoBehaviour
 
         if (signedForwardSpeed < -reverseSpeed)
         {
-            forwardVelocity = -transform.up * reverseSpeed;
+            forwardVelocity = -forward * reverseSpeed;
         }
 
         rb.linearVelocity = forwardVelocity + lateralVelocity;
@@ -182,10 +187,10 @@ public class PlayerCarController : MonoBehaviour
         // CORREÇÃO DA DIREÇÃO NA RÉ
         // =========================
 
-        float forwardSpeed = Vector2.Dot(
-            rb.linearVelocity,
-            transform.up
-        );
+        Vector2 forward = -transform.up;
+
+        float forwardSpeed =
+            Vector2.Dot(rb.linearVelocity, forward);
 
         if (forwardSpeed < -0.1f)
         {
@@ -203,9 +208,11 @@ public class PlayerCarController : MonoBehaviour
 
     private void ApplyLateralGrip()
     {
+        Vector2 forward = -transform.up;
+
         Vector2 forwardVelocity =
-            transform.up *
-            Vector2.Dot(rb.linearVelocity, transform.up);
+            forward *
+            Vector2.Dot(rb.linearVelocity, forward);
 
         Vector2 lateralVelocity =
             transform.right *
