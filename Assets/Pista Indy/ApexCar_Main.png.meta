@@ -1,0 +1,1027 @@
+fileFormatVersion: 2
+guid: 728e4c63eae5d804f8f7450e17a0cb76
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3325125422660447056
+    second: ApexCar_Main_0
+  - first:
+      213: -7696053328532155453
+    second: ApexCar_Main_1
+  - first:
+      213: -4832789845827830735
+    second: ApexCar_Main_2
+  - first:
+      213: 6225950467035370541
+    second: ApexCar_Main_3
+  - first:
+      213: 1572155255139017760
+    second: ApexCar_Main_4
+  - first:
+      213: -7434514998521661296
+    second: ApexCar_Main_5
+  - first:
+      213: 1951147540241853468
+    second: ApexCar_Main_6
+  - first:
+      213: 273186826542242108
+    second: ApexCar_Main_7
+  - first:
+      213: -2419306111580040662
+    second: ApexCar_Main_8
+  - first:
+      213: 209771721174263180
+    second: ApexCar_Main_9
+  - first:
+      213: -3305634818948573172
+    second: ApexCar_Main_10
+  - first:
+      213: -1022135014574929219
+    second: ApexCar_Main_11
+  - first:
+      213: -1031408830212783481
+    second: ApexCar_Main_12
+  - first:
+      213: -6488210337858195654
+    second: ApexCar_Main_13
+  - first:
+      213: 3572763062331366176
+    second: ApexCar_Main_14
+  - first:
+      213: -9076307148086721149
+    second: ApexCar_Main_15
+  - first:
+      213: 2624587621943033065
+    second: ApexCar_Main_16
+  - first:
+      213: 1243002309222533122
+    second: ApexCar_Main_17
+  - first:
+      213: -2236727235220990747
+    second: ApexCar_Main_18
+  - first:
+      213: -6239936606914339805
+    second: ApexCar_Main_19
+  - first:
+      213: 2116151301527709919
+    second: ApexCar_Main_20
+  - first:
+      213: -2048293543784326637
+    second: ApexCar_Main_21
+  - first:
+      213: 4384535976703998279
+    second: ApexCar_Main_22
+  - first:
+      213: -4823061888631823111
+    second: ApexCar_Main_23
+  - first:
+      213: -8751637973902148208
+    second: ApexCar_Main_24
+  - first:
+      213: 1268980503719044944
+    second: ApexCar_Main_25
+  - first:
+      213: 82415963949401533
+    second: ApexCar_Main_26
+  - first:
+      213: -2228295139752917949
+    second: ApexCar_Main_27
+  - first:
+      213: -543445799459688382
+    second: ApexCar_Main_28
+  - first:
+      213: -8766502860504601229
+    second: ApexCar_Main_29
+  - first:
+      213: -1514015783828390091
+    second: ApexCar_Main_30
+  - first:
+      213: 661245034250070974
+    second: ApexCar_Main_31
+  - first:
+      213: 2194692121911115064
+    second: ApexCar_Main_32
+  - first:
+      213: 965985812706034931
+    second: ApexCar_Main_33
+  - first:
+      213: -3803355424379702814
+    second: ApexCar_Main_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ApexCar_Main_0
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 609
+        width: 145
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05beb4364f7352e20800000000000000
+      internalID: 3325125422660447056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_1
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 598
+        width: 31
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c3d06ce540223590800000000000000
+      internalID: -7696053328532155453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_2
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 596
+        width: 225
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13c315d8d3b7eecb0800000000000000
+      internalID: -4832789845827830735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_3
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 634
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2412d896f4076650800000000000000
+      internalID: 6225950467035370541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_4
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 644
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 024235affda61d510800000000000000
+      internalID: 1572155255139017760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_5
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 606
+        width: 250
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0987dc3affb43d890800000000000000
+      internalID: -7434514998521661296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_6
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 604
+        width: 215
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c2e78a95ed31b10800000000000000
+      internalID: 1951147540241853468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_7
+      rect:
+        serializedVersion: 2
+        x: 919
+        y: 600
+        width: 155
+        height: 261
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c39dd59a8fd8ac300800000000000000
+      internalID: 273186826542242108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_8
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 600
+        width: 200
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a221758d8e5ec6ed0800000000000000
+      internalID: -2419306111580040662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_9
+      rect:
+        serializedVersion: 2
+        x: 1306
+        y: 620
+        width: 238
+        height: 235
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c85a38cd44249e200800000000000000
+      internalID: 209771721174263180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_10
+      rect:
+        serializedVersion: 2
+        x: 1500
+        y: 604
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c08586b65a60022d0800000000000000
+      internalID: -3305634818948573172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_11
+      rect:
+        serializedVersion: 2
+        x: 1576
+        y: 614
+        width: 186
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbac5c7ae95a0d1f0800000000000000
+      internalID: -1022135014574929219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 305
+        width: 437
+        height: 276
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78247f03223bfa1f0800000000000000
+      internalID: -1031408830212783481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_13
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 225
+        width: 1124
+        height: 369
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3fe1ffd21f35f5a0800000000000000
+      internalID: -6488210337858195654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_14
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 568
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02bd5ec6311059130800000000000000
+      internalID: 3572763062331366176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_15
+      rect:
+        serializedVersion: 2
+        x: 1573
+        y: 332
+        width: 190
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 385c3f5bcba7a0280800000000000000
+      internalID: -9076307148086721149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_16
+      rect:
+        serializedVersion: 2
+        x: 1597
+        y: 330
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ec3dc759886c6420800000000000000
+      internalID: 2624587621943033065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_17
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 308
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2080338b308004110800000000000000
+      internalID: 1243002309222533122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_18
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 307
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e416352e6c85f0e0800000000000000
+      internalID: -2236727235220990747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_19
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 311
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32c1ae377ba4769a0800000000000000
+      internalID: -6239936606914339805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 196
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd82a8a95641e5d10800000000000000
+      internalID: 2116151301527709919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_21
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 255
+        width: 42
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31a520fcfdff293e0800000000000000
+      internalID: -2048293543784326637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_22
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 287
+        width: 17
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 749bc549d3009dc30800000000000000
+      internalID: 4384535976703998279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_23
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 0
+        width: 177
+        height: 294
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f4206614ca011db0800000000000000
+      internalID: -4823061888631823111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_24
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 291
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09d3eb281afeb8680800000000000000
+      internalID: -8751637973902148208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_25
+      rect:
+        serializedVersion: 2
+        x: 1472
+        y: 281
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 057e1177b035c9110800000000000000
+      internalID: 1268980503719044944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_26
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 27
+        width: 189
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db5860fe1ecc42100800000000000000
+      internalID: 82415963949401533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_27
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 27
+        width: 212
+        height: 259
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3444c4c50618311e0800000000000000
+      internalID: -2228295139752917949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_28
+      rect:
+        serializedVersion: 2
+        x: 687
+        y: 23
+        width: 223
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 240f688bcea4578f0800000000000000
+      internalID: -543445799459688382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_29
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 29
+        width: 202
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37d6d256810275680800000000000000
+      internalID: -8766502860504601229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_30
+      rect:
+        serializedVersion: 2
+        x: 1337
+        y: 265
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53ff29c8aa22dfae0800000000000000
+      internalID: -1514015783828390091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_31
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 233
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebb67ffead63d2900800000000000000
+      internalID: 661245034250070974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_32
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 53
+        width: 294
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83d3cdd5bdc157e10800000000000000
+      internalID: 2194692121911115064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_33
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 63
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f409688afed76d00800000000000000
+      internalID: 965985812706034931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ApexCar_Main_34
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 22
+        width: 298
+        height: 207
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e1fa4f7464c73bc0800000000000000
+      internalID: -3803355424379702814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ApexCar_Main_0: 3325125422660447056
+      ApexCar_Main_1: -7696053328532155453
+      ApexCar_Main_10: -3305634818948573172
+      ApexCar_Main_11: -1022135014574929219
+      ApexCar_Main_12: -1031408830212783481
+      ApexCar_Main_13: -6488210337858195654
+      ApexCar_Main_14: 3572763062331366176
+      ApexCar_Main_15: -9076307148086721149
+      ApexCar_Main_16: 2624587621943033065
+      ApexCar_Main_17: 1243002309222533122
+      ApexCar_Main_18: -2236727235220990747
+      ApexCar_Main_19: -6239936606914339805
+      ApexCar_Main_2: -4832789845827830735
+      ApexCar_Main_20: 2116151301527709919
+      ApexCar_Main_21: -2048293543784326637
+      ApexCar_Main_22: 4384535976703998279
+      ApexCar_Main_23: -4823061888631823111
+      ApexCar_Main_24: -8751637973902148208
+      ApexCar_Main_25: 1268980503719044944
+      ApexCar_Main_26: 82415963949401533
+      ApexCar_Main_27: -2228295139752917949
+      ApexCar_Main_28: -543445799459688382
+      ApexCar_Main_29: -8766502860504601229
+      ApexCar_Main_3: 6225950467035370541
+      ApexCar_Main_30: -1514015783828390091
+      ApexCar_Main_31: 661245034250070974
+      ApexCar_Main_32: 2194692121911115064
+      ApexCar_Main_33: 965985812706034931
+      ApexCar_Main_34: -3803355424379702814
+      ApexCar_Main_4: 1572155255139017760
+      ApexCar_Main_5: -7434514998521661296
+      ApexCar_Main_6: 1951147540241853468
+      ApexCar_Main_7: 273186826542242108
+      ApexCar_Main_8: -2419306111580040662
+      ApexCar_Main_9: 209771721174263180
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
