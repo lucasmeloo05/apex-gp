@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class LapController : MonoBehaviour
@@ -6,55 +7,138 @@ public class LapController : MonoBehaviour
     [SerializeField] private int totalLaps = 3;
     [SerializeField] private float maxRaceTime = 90f;
 
-    private int currentLap = 0;
-    private bool canCompleteLap = false;
+    [Header("Final da Corrida")]
+    [SerializeField] private float finishDelay = 3f;
+
+    private class CarRaceData
+    {
+        public int currentLap = 0;
+        public bool hasStarted = false;
+        public bool hasFinished = false;
+        public float lastCrossingTime = -999f;
+    }
+
+    private Dictionary<GameObject, CarRaceData> cars =
+        new Dictionary<GameObject, CarRaceData>();
 
     private float raceTimer = 0f;
+
     private bool raceStarted = false;
     private bool raceFinished = false;
 
     private void Update()
     {
-        // S� conta o tempo depois que a corrida come�ar
+        // Só conta o tempo depois que a corrida começou
         if (!raceStarted || raceFinished)
             return;
 
         raceTimer += Time.deltaTime;
 
-        // Tempo acabou
+        // =========================
+        // TEMPO LIMITE
+        // =========================
+
         if (raceTimer >= maxRaceTime)
         {
-            Defeat();
+            DefeatByTime();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
+        // =====================================================
+        // IDENTIFICA O CARRO
+        // =====================================================
+
+        PlayerCarController player =
+            other.GetComponentInParent<PlayerCarController>();
+
+        AICarController ai =
+            other.GetComponentInParent<AICarController>();
+
+        // Não é Player nem IA
+        if (player == null && ai == null)
             return;
 
-        // Primeira passagem: inicia a corrida
-        if (!canCompleteLap)
+        GameObject car;
+
+        if (player != null)
         {
-            canCompleteLap = true;
+            car = player.gameObject;
+        }
+        else
+        {
+            car = ai.gameObject;
+        }
+
+        // =====================================================
+        // CRIA REGISTRO DO CARRO
+        // =====================================================
+
+        if (!cars.ContainsKey(car))
+        {
+            cars.Add(
+                car,
+                new CarRaceData()
+            );
+        }
+
+        CarRaceData data = cars[car];
+
+        // =====================================================
+        // EVITA CONTAGEM DUPLA
+        // =====================================================
+
+        if (Time.time - data.lastCrossingTime < 1f)
+            return;
+
+        data.lastCrossingTime = Time.time;
+
+        // =====================================================
+        // PRIMEIRA PASSAGEM
+        // =====================================================
+
+        if (!raceStarted)
+        {
             raceStarted = true;
             raceTimer = 0f;
 
-            Debug.Log("Volta iniciada!");
-            Debug.Log("Tempo m�ximo: " + maxRaceTime + " segundos");
+            data.hasStarted = true;
+
+            Debug.Log("================================");
+            Debug.Log("🏁 CORRIDA INICIADA!");
+            Debug.Log("================================");
 
             return;
         }
 
-        // Se a corrida j� terminou, ignora
-        if (raceFinished)
+        // =====================================================
+        // CARRO AINDA NÃO ESTAVA NA CORRIDA
+        // =====================================================
+
+        if (!data.hasStarted)
+        {
+            data.hasStarted = true;
+            return;
+        }
+
+        // =====================================================
+        // CARRO JÁ TERMINOU
+        // =====================================================
+
+        if (data.hasFinished)
             return;
 
-        currentLap++;
+        // =====================================================
+        // COMPLETOU UMA VOLTA
+        // =====================================================
+
+        data.currentLap++;
 
         Debug.Log(
-            "Volta completada: " +
-            currentLap +
+            GetCarName(car) +
+            " completou a volta " +
+            data.currentLap +
             "/" +
             totalLaps +
             " | Tempo: " +
@@ -62,34 +146,167 @@ public class LapController : MonoBehaviour
             "s"
         );
 
-        // Vit�ria
-        if (currentLap >= totalLaps)
+        // =====================================================
+        // TERMINOU A CORRIDA
+        // =====================================================
+
+        if (data.currentLap >= totalLaps)
         {
-            Victory();
+            FinishCar(car);
         }
     }
 
+    // =========================================================
+    // FINALIZA CARRO
+    // =========================================================
+
+    private void FinishCar(GameObject car)
+    {
+        CarRaceData data = cars[car];
+
+        data.hasFinished = true;
+
+        Debug.Log(
+            GetCarName(car) +
+            " terminou a corrida!"
+        );
+
+        Debug.Log(
+            "Tempo: " +
+            raceTimer.ToString("F2") +
+            " segundos"
+        );
+
+        // =====================================================
+        // PLAYER TERMINOU
+        // =====================================================
+
+        if (car.GetComponent<PlayerCarController>() != null)
+        {
+            Victory();
+            return;
+        }
+
+        // =====================================================
+        // IA TERMINOU
+        // =====================================================
+
+        if (car.GetComponent<AICarController>() != null)
+        {
+            DefeatByAI();
+        }
+    }
+
+    // =========================================================
+    // VITÓRIA
+    // =========================================================
+
     private void Victory()
     {
+        if (raceFinished)
+            return;
+
         raceFinished = true;
 
         Debug.Log("================================");
-        Debug.Log("VIT�RIA!");
+        Debug.Log("🏆 VITÓRIA!");
+        Debug.Log("🏁 VOCÊ TERMINOU A CORRIDA EM PRIMEIRO!");
         Debug.Log(
             "Tempo final: " +
             raceTimer.ToString("F2") +
             " segundos"
         );
         Debug.Log("================================");
+
+        Invoke(
+            nameof(StopRace),
+            finishDelay
+        );
     }
 
-    private void Defeat()
+    // =========================================================
+    // DERROTA - IA
+    // =========================================================
+
+    private void DefeatByAI()
     {
+        if (raceFinished)
+            return;
+
         raceFinished = true;
 
         Debug.Log("================================");
-        Debug.Log("DERROTA!");
-        Debug.Log("Tempo limite de 90 segundos atingido.");
+        Debug.Log("❌ DERROTA!");
+        Debug.Log("🏎️ A IA TERMINOU A CORRIDA PRIMEIRO!");
+        Debug.Log(
+            "Tempo: " +
+            raceTimer.ToString("F2") +
+            " segundos"
+        );
         Debug.Log("================================");
+
+        Invoke(
+            nameof(StopRace),
+            finishDelay
+        );
+    }
+
+    // =========================================================
+    // DERROTA - TEMPO
+    // =========================================================
+
+    private void DefeatByTime()
+    {
+        if (raceFinished)
+            return;
+
+        raceFinished = true;
+
+        Debug.Log("================================");
+        Debug.Log("⏱️ TEMPO ESGOTADO!");
+        Debug.Log("❌ DERROTA!");
+        Debug.Log(
+            "Tempo máximo de " +
+            maxRaceTime +
+            " segundos atingido."
+        );
+        Debug.Log("================================");
+
+        Invoke(
+            nameof(StopRace),
+            finishDelay
+        );
+    }
+
+    // =========================================================
+    // PARA A CORRIDA
+    // =========================================================
+
+    private void StopRace()
+    {
+        Time.timeScale = 0f;
+
+        Debug.Log("================================");
+        Debug.Log("🏁 CORRIDA ENCERRADA.");
+        Debug.Log("================================");
+    }
+
+    // =========================================================
+    // NOME DO CARRO
+    // =========================================================
+
+    private string GetCarName(GameObject car)
+    {
+        if (car.GetComponent<PlayerCarController>() != null)
+        {
+            return "PLAYER";
+        }
+
+        if (car.GetComponent<AICarController>() != null)
+        {
+            return "IA";
+        }
+
+        return car.name;
     }
 }

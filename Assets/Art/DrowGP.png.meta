@@ -1,0 +1,626 @@
+fileFormatVersion: 2
+guid: 25f6fae34262adb479091a70da20457d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8033850328939118096
+    second: DrowGP_0
+  - first:
+      213: -6520363997077604067
+    second: DrowGP_1
+  - first:
+      213: -715085346638625711
+    second: DrowGP_2
+  - first:
+      213: 7221275532648027500
+    second: DrowGP_3
+  - first:
+      213: -1846438472280461894
+    second: DrowGP_4
+  - first:
+      213: 5021814202359476144
+    second: DrowGP_5
+  - first:
+      213: -8630672244592215547
+    second: DrowGP_6
+  - first:
+      213: 6555246409467957046
+    second: DrowGP_7
+  - first:
+      213: -3261546478491913943
+    second: DrowGP_8
+  - first:
+      213: -5434291439129596542
+    second: DrowGP_9
+  - first:
+      213: -6085848098965238020
+    second: DrowGP_10
+  - first:
+      213: -8450940549509599551
+    second: DrowGP_11
+  - first:
+      213: 3541185530513917448
+    second: DrowGP_12
+  - first:
+      213: -3723959104099286503
+    second: DrowGP_13
+  - first:
+      213: -5377425267862385588
+    second: DrowGP_14
+  - first:
+      213: 6300269645858991039
+    second: DrowGP_15
+  - first:
+      213: -1900470375272033395
+    second: DrowGP_16
+  - first:
+      213: -8184220233553869940
+    second: DrowGP_17
+  - first:
+      213: -6394871356023551366
+    second: DrowGP_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DrowGP_0
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 605
+        width: 162
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01e321b1f48fd7f60800000000000000
+      internalID: 8033850328939118096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_1
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 613
+        width: 194
+        height: 243
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1971f3bd730385a0800000000000000
+      internalID: -6520363997077604067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_2
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 645
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15484897aa18316f0800000000000000
+      internalID: -715085346638625711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_3
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 609
+        width: 459
+        height: 245
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6594b446df173460800000000000000
+      internalID: 7221275532648027500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_4
+      rect:
+        serializedVersion: 2
+        x: 930
+        y: 601
+        width: 155
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abdab180ef12066e0800000000000000
+      internalID: -1846438472280461894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_5
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 605
+        width: 438
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bfe5ab096111b540800000000000000
+      internalID: 5021814202359476144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_6
+      rect:
+        serializedVersion: 2
+        x: 1579
+        y: 615
+        width: 194
+        height: 245
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50af1402251b93880800000000000000
+      internalID: -8630672244592215547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_7
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 312
+        width: 206
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f0e73d0e9e8fa50800000000000000
+      internalID: 6555246409467957046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_8
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 324
+        width: 198
+        height: 245
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 921301b12c8acb2d0800000000000000
+      internalID: -3261546478491913943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_9
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 314
+        width: 1112
+        height: 274
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28debbc6ab48594b0800000000000000
+      internalID: -5434291439129596542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_10
+      rect:
+        serializedVersion: 2
+        x: 1565
+        y: 328
+        width: 199
+        height: 248
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfec030f569ba8ba0800000000000000
+      internalID: -6085848098965238020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_11
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 195
+        height: 297
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ce2980685a38ba80800000000000000
+      internalID: -8450940549509599551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_12
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 0
+        width: 473
+        height: 290
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 806090e5a71d42130800000000000000
+      internalID: 3541185530513917448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_13
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 0
+        width: 158
+        height: 301
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 912841adce6d15cc0800000000000000
+      internalID: -3723959104099286503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_14
+      rect:
+        serializedVersion: 2
+        x: 1096
+        y: 16
+        width: 503
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4c4adea53c8f55b0800000000000000
+      internalID: -5377425267862385588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_15
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 282
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbbe996dcdd0f6750800000000000000
+      internalID: 6300269645858991039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_16
+      rect:
+        serializedVersion: 2
+        x: 1577
+        y: 16
+        width: 187
+        height: 276
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d83d1c7434c20a5e0800000000000000
+      internalID: -1900470375272033395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_17
+      rect:
+        serializedVersion: 2
+        x: 692
+        y: 16
+        width: 213
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8305773f0fcb6e80800000000000000
+      internalID: -8184220233553869940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DrowGP_18
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 16
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a45e7126ad047a0800000000000000
+      internalID: -6394871356023551366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fb496b006a66b1446ae5674b66f87f3e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      DrowGP_0: 8033850328939118096
+      DrowGP_1: -6520363997077604067
+      DrowGP_10: -6085848098965238020
+      DrowGP_11: -8450940549509599551
+      DrowGP_12: 3541185530513917448
+      DrowGP_13: -3723959104099286503
+      DrowGP_14: -5377425267862385588
+      DrowGP_15: 6300269645858991039
+      DrowGP_16: -1900470375272033395
+      DrowGP_17: -8184220233553869940
+      DrowGP_18: -6394871356023551366
+      DrowGP_2: -715085346638625711
+      DrowGP_3: 7221275532648027500
+      DrowGP_4: -1846438472280461894
+      DrowGP_5: 5021814202359476144
+      DrowGP_6: -8630672244592215547
+      DrowGP_7: 6555246409467957046
+      DrowGP_8: -3261546478491913943
+      DrowGP_9: -5434291439129596542
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

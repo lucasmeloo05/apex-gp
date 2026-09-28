@@ -6,13 +6,13 @@ public class PlayerCarController : MonoBehaviour
     private Rigidbody2D rb;
 
     [Header("Engine")]
-    [SerializeField] private float acceleration = 8f;
-    [SerializeField] private float maxSpeed = 10f;
-    [SerializeField] private float reverseSpeed = 4f;
+    [SerializeField] private float acceleration = 25f;
+    [SerializeField] private float maxSpeed = 30f;
+    [SerializeField] private float reverseSpeed = 8f;
 
     [Header("Braking")]
-    [SerializeField] private float braking = 12f;
-    [SerializeField] private float naturalDeceleration = 2f;
+    [SerializeField] private float braking = 30f;
+    [SerializeField] private float naturalDeceleration = 4f;
 
     [Header("Steering")]
     [SerializeField] private float steering = 180f;
@@ -20,6 +20,15 @@ public class PlayerCarController : MonoBehaviour
 
     [Header("Tire Grip")]
     [SerializeField] private float lateralGrip = 5f;
+
+    [Header("Engine Sound")]
+    [SerializeField] private AudioSource engineAudio;
+
+    [Header("Acceleration Sound")]
+    [SerializeField] private AudioSource accelerationAudio;
+
+    [Header("Brake Sound")]
+    [SerializeField] private AudioSource brakeAudio;
 
     private float throttleInput;
     private float steeringInput;
@@ -35,16 +44,57 @@ public class PlayerCarController : MonoBehaviour
         steeringInput = 0f;
 
         // =========================
-        // ACELERAÇÃO / RÉ
+        // ACELERAÇÃO
         // =========================
 
         if (Keyboard.current.wKey.isPressed)
         {
             throttleInput = 1f;
+
+            HandleAccelerationSound();
+
+            // Som de partida
+            // Toca somente quando W é pressionado
+            if (Keyboard.current.wKey.wasPressedThisFrame)
+            {
+                PlayEngineStartSound();
+            }
         }
+
+        // =========================
+        // FREIO / RÉ
+        // =========================
+
         else if (Keyboard.current.sKey.isPressed)
         {
             throttleInput = -1f;
+
+            Vector2 forward = -transform.up;
+
+            float forwardSpeed = Vector2.Dot(
+                rb.linearVelocity,
+                forward
+            );
+
+            // Só toca o som de freio se o carro
+            // estiver andando para frente
+            if (forwardSpeed > 0.1f &&
+                Keyboard.current.sKey.wasPressedThisFrame)
+            {
+                PlayBrakeSound();
+            }
+
+            // Para o som de aceleração
+            StopAccelerationSound();
+        }
+
+        // =========================
+        // NENHUM COMANDO
+        // =========================
+
+        else
+        {
+            StopAccelerationSound();
         }
 
         // =========================
@@ -69,6 +119,65 @@ public class PlayerCarController : MonoBehaviour
         LimitSpeed();
         ApplySteering();
     }
+
+    // =========================================================
+    // SOM DE PARTIDA
+    // =========================================================
+
+    private void PlayEngineStartSound()
+    {
+        if (engineAudio == null)
+            return;
+
+        engineAudio.loop = false;
+        engineAudio.Play();
+    }
+
+    // =========================================================
+    // SOM DE ACELERAÇÃO
+    // =========================================================
+
+    private void HandleAccelerationSound()
+    {
+        if (accelerationAudio == null)
+            return;
+
+        accelerationAudio.loop = true;
+
+        if (!accelerationAudio.isPlaying)
+        {
+            accelerationAudio.Play();
+        }
+    }
+
+    private void StopAccelerationSound()
+    {
+        if (accelerationAudio == null)
+            return;
+
+        if (accelerationAudio.isPlaying)
+        {
+            accelerationAudio.Stop();
+        }
+    }
+
+    // =========================================================
+    // SOM DE FREIO
+    // =========================================================
+
+    private void PlayBrakeSound()
+    {
+        if (brakeAudio == null)
+            return;
+
+        brakeAudio.loop = false;
+        brakeAudio.Stop();
+        brakeAudio.Play();
+    }
+
+    // =========================================================
+    // MOTOR / FÍSICA
+    // =========================================================
 
     private void HandleEngine()
     {
@@ -116,6 +225,10 @@ public class PlayerCarController : MonoBehaviour
         }
     }
 
+    // =========================================================
+    // DESACELERAÇÃO NATURAL
+    // =========================================================
+
     private void ApplyNaturalDeceleration()
     {
         if (Mathf.Abs(throttleInput) < 0.01f)
@@ -127,6 +240,10 @@ public class PlayerCarController : MonoBehaviour
             );
         }
     }
+
+    // =========================================================
+    // LIMITE DE VELOCIDADE
+    // =========================================================
 
     private void LimitSpeed()
     {
@@ -161,8 +278,14 @@ public class PlayerCarController : MonoBehaviour
             forwardVelocity = -forward * reverseSpeed;
         }
 
-        rb.linearVelocity = forwardVelocity + lateralVelocity;
+        rb.linearVelocity =
+            forwardVelocity +
+            lateralVelocity;
     }
+
+    // =========================================================
+    // DIREÇÃO
+    // =========================================================
 
     private void ApplySteering()
     {
@@ -173,15 +296,18 @@ public class PlayerCarController : MonoBehaviour
             return;
         }
 
-        float speedFactor = Mathf.Clamp01(speed / maxSpeed);
+        float speedFactor =
+            Mathf.Clamp01(speed / maxSpeed);
 
-        float steeringFactor = Mathf.Lerp(
-            lowSpeedSteering,
-            1f,
-            speedFactor
-        );
+        float steeringFactor =
+            Mathf.Lerp(
+                lowSpeedSteering,
+                1f,
+                speedFactor
+            );
 
-        float steeringDirection = steeringInput;
+        float steeringDirection =
+            steeringInput;
 
         // =========================
         // CORREÇÃO DA DIREÇÃO NA RÉ
@@ -190,7 +316,10 @@ public class PlayerCarController : MonoBehaviour
         Vector2 forward = -transform.up;
 
         float forwardSpeed =
-            Vector2.Dot(rb.linearVelocity, forward);
+            Vector2.Dot(
+                rb.linearVelocity,
+                forward
+            );
 
         if (forwardSpeed < -0.1f)
         {
@@ -203,8 +332,14 @@ public class PlayerCarController : MonoBehaviour
             steeringFactor *
             Time.fixedDeltaTime;
 
-        rb.MoveRotation(rb.rotation + steeringAmount);
+        rb.MoveRotation(
+            rb.rotation + steeringAmount
+        );
     }
+
+    // =========================================================
+    // ADERÊNCIA LATERAL
+    // =========================================================
 
     private void ApplyLateralGrip()
     {
@@ -212,11 +347,17 @@ public class PlayerCarController : MonoBehaviour
 
         Vector2 forwardVelocity =
             forward *
-            Vector2.Dot(rb.linearVelocity, forward);
+            Vector2.Dot(
+                rb.linearVelocity,
+                forward
+            );
 
         Vector2 lateralVelocity =
             transform.right *
-            Vector2.Dot(rb.linearVelocity, transform.right);
+            Vector2.Dot(
+                rb.linearVelocity,
+                transform.right
+            );
 
         rb.linearVelocity =
             forwardVelocity +
