@@ -30,6 +30,8 @@ public class AICarController : MonoBehaviour
 
     private int currentWaypoint = 0;
 
+    public int CurrentWaypoint => currentWaypoint;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

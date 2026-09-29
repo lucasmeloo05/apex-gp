@@ -21,6 +21,22 @@ public class LapController : MonoBehaviour
     private Dictionary<GameObject, CarRaceData> cars =
         new Dictionary<GameObject, CarRaceData>();
 
+    public int GetCurrentLap(GameObject car)
+    {
+        if (!cars.ContainsKey(car))
+            return 0;
+
+        return cars[car].currentLap;
+    }
+
+    public bool HasFinished(GameObject car)
+    {
+        if (!cars.ContainsKey(car))
+            return false;
+
+        return cars[car].hasFinished;
+    }
+
     private float raceTimer = 0f;
 
     private bool raceStarted = false;
@@ -28,15 +44,10 @@ public class LapController : MonoBehaviour
 
     private void Update()
     {
-        // Só conta o tempo depois que a corrida começou
         if (!raceStarted || raceFinished)
             return;
 
         raceTimer += Time.deltaTime;
-
-        // =========================
-        // TEMPO LIMITE
-        // =========================
 
         if (raceTimer >= maxRaceTime)
         {
@@ -46,17 +57,12 @@ public class LapController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // =====================================================
-        // IDENTIFICA O CARRO
-        // =====================================================
-
         PlayerCarController player =
             other.GetComponentInParent<PlayerCarController>();
 
         AICarController ai =
             other.GetComponentInParent<AICarController>();
 
-        // Não é Player nem IA
         if (player == null && ai == null)
             return;
 
@@ -71,10 +77,6 @@ public class LapController : MonoBehaviour
             car = ai.gameObject;
         }
 
-        // =====================================================
-        // CRIA REGISTRO DO CARRO
-        // =====================================================
-
         if (!cars.ContainsKey(car))
         {
             cars.Add(
@@ -85,17 +87,15 @@ public class LapController : MonoBehaviour
 
         CarRaceData data = cars[car];
 
-        // =====================================================
-        // EVITA CONTAGEM DUPLA
-        // =====================================================
-
+        // Evita o mesmo carro contar a linha
+        // várias vezes seguidas.
         if (Time.time - data.lastCrossingTime < 1f)
             return;
 
         data.lastCrossingTime = Time.time;
 
         // =====================================================
-        // PRIMEIRA PASSAGEM
+        // PRIMEIRA PASSAGEM PELA LINHA
         // =====================================================
 
         if (!raceStarted)
@@ -107,20 +107,29 @@ public class LapController : MonoBehaviour
 
             Debug.Log("================================");
             Debug.Log("🏁 CORRIDA INICIADA!");
+            Debug.Log("🏁 VOLTAS: " + totalLaps);
             Debug.Log("================================");
 
             return;
         }
 
         // =====================================================
-        // CARRO AINDA NÃO ESTAVA NA CORRIDA
+        // CARRO AINDA NÃO ENTROU NA CORRIDA
         // =====================================================
 
         if (!data.hasStarted)
         {
             data.hasStarted = true;
+
             return;
         }
+
+        // =====================================================
+        // CORRIDA JÁ TERMINOU
+        // =====================================================
+
+        if (raceFinished)
+            return;
 
         // =====================================================
         // CARRO JÁ TERMINOU
@@ -157,15 +166,19 @@ public class LapController : MonoBehaviour
     }
 
     // =========================================================
-    // FINALIZA CARRO
+    // CARRO TERMINOU
     // =========================================================
 
     private void FinishCar(GameObject car)
     {
+        if (raceFinished)
+            return;
+
         CarRaceData data = cars[car];
 
         data.hasFinished = true;
 
+        Debug.Log("================================");
         Debug.Log(
             GetCarName(car) +
             " terminou a corrida!"
@@ -176,9 +189,10 @@ public class LapController : MonoBehaviour
             raceTimer.ToString("F2") +
             " segundos"
         );
+        Debug.Log("================================");
 
         // =====================================================
-        // PLAYER TERMINOU
+        // PLAYER VENCEU
         // =====================================================
 
         if (car.GetComponent<PlayerCarController>() != null)
@@ -188,7 +202,7 @@ public class LapController : MonoBehaviour
         }
 
         // =====================================================
-        // IA TERMINOU
+        // IA VENCEU
         // =====================================================
 
         if (car.GetComponent<AICarController>() != null)
@@ -210,7 +224,7 @@ public class LapController : MonoBehaviour
 
         Debug.Log("================================");
         Debug.Log("🏆 VITÓRIA!");
-        Debug.Log("🏁 VOCÊ TERMINOU A CORRIDA EM PRIMEIRO!");
+        Debug.Log("🏁 VOCÊ TERMINOU A CORRIDA EM 1º!");
         Debug.Log(
             "Tempo final: " +
             raceTimer.ToString("F2") +
@@ -237,7 +251,7 @@ public class LapController : MonoBehaviour
 
         Debug.Log("================================");
         Debug.Log("❌ DERROTA!");
-        Debug.Log("🏎️ A IA TERMINOU A CORRIDA PRIMEIRO!");
+        Debug.Log("🏎️ A IA TERMINOU A CORRIDA EM 1º!");
         Debug.Log(
             "Tempo: " +
             raceTimer.ToString("F2") +

@@ -303,6 +303,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 184808681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &154733749 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3713327988858702710, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+  m_PrefabInstance: {fileID: 1502081235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &184808680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,6 +1163,55 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 184808681}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &328839887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328839889}
+  - component: {fileID: 328839888}
+  m_Layer: 0
+  m_Name: RacePositionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &328839888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328839887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d28db4ea3fcccf4a9a18bea41cf6e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacePositionManager
+  lapController: {fileID: 0}
+  player: {fileID: 0}
+  bots:
+  - {fileID: 55952429}
+  totalWaypoints: 32
+--- !u!4 &328839889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328839887}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 40.72958, y: 77.31905, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &352948322
 GameObject:
@@ -3973,10 +4027,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 4752102286096014186, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296462038889175748, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3713327988858702710, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1906593044}
   m_SourcePrefab: {fileID: 100100000, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
 --- !u!1 &1516462887
 GameObject:
@@ -4023,7 +4088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2206920729106005945, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: totalLaps
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2206920729106005945, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: maxRaceTime
@@ -4253,6 +4318,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4178966904324776958, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
   m_PrefabInstance: {fileID: 1502081235}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1906593044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154733749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f7505f1ce9de64d8edf9aae3c9a285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWaypointProgress
+  waypoints:
+  - {fileID: 1890553810}
+  - {fileID: 382398708}
+  - {fileID: 355268533}
+  - {fileID: 995007577}
+  - {fileID: 1480050326}
+  - {fileID: 148992131}
+  - {fileID: 1175263286}
+  - {fileID: 1439095697}
+  - {fileID: 722432299}
+  - {fileID: 1899492005}
+  - {fileID: 886370701}
+  - {fileID: 1991311556}
+  - {fileID: 1021102040}
+  - {fileID: 276474770}
+  - {fileID: 1285669074}
+  - {fileID: 194521065}
+  - {fileID: 1357876398}
+  - {fileID: 267025826}
+  - {fileID: 599558227}
+  - {fileID: 1241654742}
+  - {fileID: 1020027596}
+  - {fileID: 526807952}
+  - {fileID: 1061868469}
+  - {fileID: 247402736}
+  - {fileID: 655397668}
+  - {fileID: 1066656762}
+  - {fileID: 863000203}
+  - {fileID: 1917544896}
+  - {fileID: 1383681093}
+  - {fileID: 1179206866}
+  - {fileID: 1516462888}
+  - {fileID: 2000352522}
+  waypointReachDistance: 15
+  currentWaypoint: 0
 --- !u!1 &1917544895
 GameObject:
   m_ObjectHideFlags: 0
@@ -4394,3 +4506,4 @@ SceneRoots:
   - {fileID: 1956808964}
   - {fileID: 184808681}
   - {fileID: 124745044}
+  - {fileID: 328839889}
