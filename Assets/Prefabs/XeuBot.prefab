@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 6296462038889175748}
   - component: {fileID: 4752102286096014186}
   - component: {fileID: 2314636607496715718}
-  m_Layer: 0
-  m_Name: PlayerCar 1
+  - component: {fileID: 4297495287258084299}
+  m_Layer: 6
+  m_Name: XeuBot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3713327988858702710}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 50.92321, y: 29.29972, z: -1}
+  m_LocalPosition: {x: 50.9, y: 29.59, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -118,22 +119,35 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3713327988858702710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 554b2d8c4e693b14eaadd32b214c7b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCarController
+  physics: {fileID: 11400000, guid: d68de034e05a0bc47a0c367d0c62eef4, type: 2}
   acceleration: 25
   maxSpeed: 30
   reverseSpeed: 8
-  braking: 30
+  braking: 16
   naturalDeceleration: 4
-  steering: 180
-  lowSpeedSteering: 0.5
-  lateralGrip: 5
+  brakeRampTime: 0.35
+  brakeSoftStopSpeed: 4
+  steeringResponse: 10
+  enableLaunchSlip: 1
+  slipTriggerSpeed: 2
+  slipRearmSpeed: 1
+  slipYawKick: 140
+  slipFrequency: 9
+  slipDamping: 2.5
+  slipDuration: 1.4
+  slipGripFraction: 0.3
+  wheelspinTractionLoss: 0.3
+  slipCooldown: 2
+  counterSteerAssist: 0.5
   engineAudio: {fileID: 6296462038889175748}
   accelerationAudio: {fileID: 4752102286096014186}
   brakeAudio: {fileID: 2314636607496715718}
+  skidAudio: {fileID: 0}
 --- !u!82 &6296462038889175748
 AudioSource:
   m_ObjectHideFlags: 0
@@ -425,6 +439,79 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4297495287258084299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713327988858702710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fd8d08058ccb243b8443674dd7a9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AICarController
+  physics: {fileID: 0}
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  waypointReachDistance: 3
+  trackHalfWidth: 6
+  edgeMargin: 1.5
+  acceleration: 25
+  maxSpeed: 30
+  maxReverseSpeed: 8
+  braking: 30
+  naturalDeceleration: 4
+  steerFullAngle: 35
+  steeringResponse: 6
+  cornerGripUseRange: {x: 0.72, y: 0.92}
+  minimumCornerSpeed: 10
+  racingLineStrength: 0.5
+  minLookAhead: 4
+  maxLookAhead: 14
+  carLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  carWidth: 2
+  carLength: 3.5
+  sensorRadius: 16
+  laneChangeSpeed: 4
+  skillRange: {x: 0.92, y: 1}
+  aggressionRange: {x: 0.2, y: 1}
+  maxStartReaction: 0.5
+  enableMistakes: 1
+  alignToTrackOnStart: 0
 --- !u!1 &8219006315224390610
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5192473040999911602}
   - component: {fileID: 5053589656393243865}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CarVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,13 +537,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8219006315224390610}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4178966904324776958}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5053589656393243865
 SpriteRenderer:
   serializedVersion: 2
@@ -504,9 +591,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 209771721174263180, guid: 73a8747575f03d942a66072085ffb6f9, type: 3}
+  m_Sprite: {fileID: -8529135716905826031, guid: bb368112a0347744fb560acd50e0b476, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

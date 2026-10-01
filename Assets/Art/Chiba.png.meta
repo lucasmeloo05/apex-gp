@@ -1,64 +1,13 @@
 fileFormatVersion: 2
-guid: 25f6fae34262adb479091a70da20457d
+guid: c25d2aa06b713334490f26884797d9c0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8033850328939118096
-    second: DrowGP_0
+      213: -188081687972461049
+    second: Chiba_0
   - first:
-      213: -6520363997077604067
-    second: DrowGP_1
-  - first:
-      213: -715085346638625711
-    second: DrowGP_2
-  - first:
-      213: 7221275532648027500
-    second: DrowGP_3
-  - first:
-      213: -1846438472280461894
-    second: DrowGP_4
-  - first:
-      213: 5021814202359476144
-    second: DrowGP_5
-  - first:
-      213: -8630672244592215547
-    second: DrowGP_6
-  - first:
-      213: 6555246409467957046
-    second: DrowGP_7
-  - first:
-      213: -3261546478491913943
-    second: DrowGP_8
-  - first:
-      213: -5434291439129596542
-    second: DrowGP_9
-  - first:
-      213: -6085848098965238020
-    second: DrowGP_10
-  - first:
-      213: -8450940549509599551
-    second: DrowGP_11
-  - first:
-      213: 3541185530513917448
-    second: DrowGP_12
-  - first:
-      213: -3723959104099286503
-    second: DrowGP_13
-  - first:
-      213: -5377425267862385588
-    second: DrowGP_14
-  - first:
-      213: 6300269645858991039
-    second: DrowGP_15
-  - first:
-      213: -1900470375272033395
-    second: DrowGP_16
-  - first:
-      213: -8184220233553869940
-    second: DrowGP_17
-  - first:
-      213: -6394871356023551366
-    second: DrowGP_18
+      213: 467462083235394388
+    second: Chiba_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -167,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DrowGP_0
+      name: Chiba_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 605
-        width: 162
-        height: 267
+        x: 0
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01e321b1f48fd7f60800000000000000
-      internalID: 8033850328939118096
+      spriteID: 70645a783bcc36df0800000000000000
+      internalID: -188081687972461049
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_1
+      name: Chiba_1
       rect:
         serializedVersion: 2
-        x: 225
-        y: 613
-        width: 194
-        height: 243
+        x: 221
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,382 +153,492 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d1971f3bd730385a0800000000000000
-      internalID: -6520363997077604067
+      spriteID: 453b539b942cc7600800000000000000
+      internalID: 467462083235394388
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_2
+      name: Chiba_2
       rect:
         serializedVersion: 2
-        x: 434
-        y: 645
-        width: 6
-        height: 5
+        x: 442
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 15484897aa18316f0800000000000000
-      internalID: -715085346638625711
+      spriteID: 93cc90000e076b04194643c158fc3256
+      internalID: 991330069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_3
+      name: Chiba_3
       rect:
         serializedVersion: 2
-        x: 444
-        y: 609
-        width: 459
-        height: 245
+        x: 663
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c6594b446df173460800000000000000
-      internalID: 7221275532648027500
+      spriteID: 20e0303b22d274942ae473305aa65b25
+      internalID: 1743268759
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_4
+      name: Chiba_4
       rect:
         serializedVersion: 2
-        x: 930
-        y: 601
-        width: 155
-        height: 271
+        x: 884
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: abdab180ef12066e0800000000000000
-      internalID: -1846438472280461894
+      spriteID: b42be369b25c5e14dac05689c8021913
+      internalID: -1448567703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_5
+      name: Chiba_5
       rect:
         serializedVersion: 2
-        x: 1110
-        y: 605
-        width: 438
-        height: 247
+        x: 1105
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0bfe5ab096111b540800000000000000
-      internalID: 5021814202359476144
+      spriteID: e80ede4dea45fad429b46adab0e09b94
+      internalID: -1758636247
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_6
+      name: Chiba_6
       rect:
         serializedVersion: 2
-        x: 1579
-        y: 615
-        width: 194
-        height: 245
+        x: 1326
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 50af1402251b93880800000000000000
-      internalID: -8630672244592215547
+      spriteID: 9563783c29e339d4491339839ef49a82
+      internalID: -741809446
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_7
+      name: Chiba_7
       rect:
         serializedVersion: 2
-        x: 13
-        y: 312
-        width: 206
-        height: 272
+        x: 1547
+        y: 592
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 63f0e73d0e9e8fa50800000000000000
-      internalID: 6555246409467957046
+      spriteID: 563c33b1d7c0b9e40b4fff1585d65615
+      internalID: -526712652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_8
+      name: Chiba_8
       rect:
         serializedVersion: 2
-        x: 223
-        y: 324
-        width: 198
-        height: 245
+        x: 0
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 921301b12c8acb2d0800000000000000
-      internalID: -3261546478491913943
+      spriteID: 7562af2ce85c69948a5c903ea40dc00f
+      internalID: 83421631
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_9
+      name: Chiba_9
       rect:
         serializedVersion: 2
-        x: 436
-        y: 314
-        width: 1112
-        height: 274
+        x: 221
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 28debbc6ab48594b0800000000000000
-      internalID: -5434291439129596542
+      spriteID: f515e29a606f0a446b0a3860f2c01701
+      internalID: 1151438996
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_10
+      name: Chiba_10
       rect:
         serializedVersion: 2
-        x: 1565
-        y: 328
-        width: 199
-        height: 248
+        x: 442
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cfec030f569ba8ba0800000000000000
-      internalID: -6085848098965238020
+      spriteID: e7f41d7c15222504da8fcb99a28940ab
+      internalID: -766781052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_11
+      name: Chiba_11
       rect:
         serializedVersion: 2
-        x: 17
-        y: 0
-        width: 195
-        height: 297
+        x: 663
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1ce2980685a38ba80800000000000000
-      internalID: -8450940549509599551
+      spriteID: 929d2b9742c9a3f4f90052be9f2d2876
+      internalID: 405910147
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_12
+      name: Chiba_12
       rect:
         serializedVersion: 2
-        x: 223
-        y: 0
-        width: 473
-        height: 290
+        x: 884
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 806090e5a71d42130800000000000000
-      internalID: 3541185530513917448
+      spriteID: d0d636b0deaf1a2458b6c0a6049d25d5
+      internalID: -1275533955
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_13
+      name: Chiba_13
       rect:
         serializedVersion: 2
-        x: 928
-        y: 0
-        width: 158
-        height: 301
+        x: 1105
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 912841adce6d15cc0800000000000000
-      internalID: -3723959104099286503
+      spriteID: d027da69f93fa194bbed2e69fd274f7d
+      internalID: 456529310
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_14
+      name: Chiba_14
       rect:
         serializedVersion: 2
-        x: 1096
-        y: 16
-        width: 503
-        height: 281
+        x: 1326
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c4c4adea53c8f55b0800000000000000
-      internalID: -5377425267862385588
+      spriteID: 982bcc745797d9c42b7501941c2c2280
+      internalID: -2109205813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_15
+      name: Chiba_15
       rect:
         serializedVersion: 2
-        x: 1477
-        y: 282
-        width: 5
-        height: 8
+        x: 1547
+        y: 297
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: fbbe996dcdd0f6750800000000000000
-      internalID: 6300269645858991039
+      spriteID: ab7e094a660af19499501223b11b148b
+      internalID: 1972085602
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_16
+      name: Chiba_16
       rect:
         serializedVersion: 2
-        x: 1577
-        y: 16
-        width: 187
-        height: 276
+        x: 0
+        y: 2
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d83d1c7434c20a5e0800000000000000
-      internalID: -1900470375272033395
+      spriteID: a21dd79c6d8427449b482ef666bfcbcb
+      internalID: -717473313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_17
+      name: Chiba_17
       rect:
         serializedVersion: 2
-        x: 692
-        y: 16
-        width: 213
-        height: 265
+        x: 221
+        y: 2
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c8305773f0fcb6e80800000000000000
-      internalID: -8184220233553869940
+      spriteID: 95f54487ca491ac4b817e26972e31e1f
+      internalID: -586643167
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DrowGP_18
+      name: Chiba_18
       rect:
         serializedVersion: 2
-        x: 924
-        y: 16
-        width: 5
-        height: 9
+        x: 442
+        y: 2
+        width: 221
+        height: 295
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a7a45e7126ad047a0800000000000000
-      internalID: -6394871356023551366
+      spriteID: 47225e04e0c870447a28ec9eb3f24deb
+      internalID: -575696070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chiba_19
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 2
+        width: 221
+        height: 295
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db21140f13fce8b4783d464018e7aa44
+      internalID: 1038211138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chiba_20
+      rect:
+        serializedVersion: 2
+        x: 884
+        y: 2
+        width: 221
+        height: 295
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82bd72a3f19dfab47b727aa42137aa82
+      internalID: -2116310914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chiba_21
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 2
+        width: 221
+        height: 295
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cad7cf05b1662764c96322eb4e720128
+      internalID: -208980129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chiba_22
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 2
+        width: 221
+        height: 295
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efc79e6b688ccb24eb77a43b84d2eb2b
+      internalID: -746885490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chiba_23
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 2
+        width: 221
+        height: 295
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67791f4188db3dc4baa098d0bdd6598d
+      internalID: -1345935862
       vertices: []
       indices: 
       edges: []
@@ -588,7 +647,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: fb496b006a66b1446ae5674b66f87f3e
+    spriteID: e05a64abad724da4a8d9b81ad2e1d072
     internalID: 0
     vertices: []
     indices: 
@@ -598,27 +657,32 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":3.0},"gridSpriteSize":{"x":221.0,"y":295.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      DrowGP_0: 8033850328939118096
-      DrowGP_1: -6520363997077604067
-      DrowGP_10: -6085848098965238020
-      DrowGP_11: -8450940549509599551
-      DrowGP_12: 3541185530513917448
-      DrowGP_13: -3723959104099286503
-      DrowGP_14: -5377425267862385588
-      DrowGP_15: 6300269645858991039
-      DrowGP_16: -1900470375272033395
-      DrowGP_17: -8184220233553869940
-      DrowGP_18: -6394871356023551366
-      DrowGP_2: -715085346638625711
-      DrowGP_3: 7221275532648027500
-      DrowGP_4: -1846438472280461894
-      DrowGP_5: 5021814202359476144
-      DrowGP_6: -8630672244592215547
-      DrowGP_7: 6555246409467957046
-      DrowGP_8: -3261546478491913943
-      DrowGP_9: -5434291439129596542
+      Chiba_0: -188081687972461049
+      Chiba_1: 467462083235394388
+      Chiba_10: -766781052
+      Chiba_11: 405910147
+      Chiba_12: -1275533955
+      Chiba_13: 456529310
+      Chiba_14: -2109205813
+      Chiba_15: 1972085602
+      Chiba_16: -717473313
+      Chiba_17: -586643167
+      Chiba_18: -575696070
+      Chiba_19: 1038211138
+      Chiba_2: 991330069
+      Chiba_20: -2116310914
+      Chiba_21: -208980129
+      Chiba_22: -746885490
+      Chiba_23: -1345935862
+      Chiba_3: 1743268759
+      Chiba_4: -1448567703
+      Chiba_5: -1758636247
+      Chiba_6: -741809446
+      Chiba_7: -526712652
+      Chiba_8: 83421631
+      Chiba_9: 1151438996
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

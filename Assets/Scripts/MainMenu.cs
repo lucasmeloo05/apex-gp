@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -44,5 +45,10 @@ public class MainMenu : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void OnTrack1Clicked()
+    {
+        SceneManager.LoadScene("BraTest");
     }
 }

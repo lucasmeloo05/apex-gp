@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 6296462038889175748}
   - component: {fileID: 4752102286096014186}
   - component: {fileID: 2314636607496715718}
-  - component: {fileID: 3735020897250383586}
+  - component: {fileID: 3037761554357897497}
   m_Layer: 6
-  m_Name: PlayerCar
+  m_Name: ApexBot
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 3713327988858702710}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 50.92321, y: 36.12, z: -1}
+  m_LocalPosition: {x: 69.67, y: 29.59, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3713327988858702710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 554b2d8c4e693b14eaadd32b214c7b42, type: 3}
   m_Name: 
@@ -161,7 +161,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 29899fd2a9001584ea11bb4a7e5cbe72, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -258,7 +258,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: d2cfad2363c6b2d4bbdc4faa86669fa5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -353,7 +353,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: b074b8a8ddcd95040804ae375a4ac581, type: 3}
+  m_Resource: {fileID: 8300000, guid: c77118d002b8feb438621c8e87c1290f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.7
   m_Pitch: 1
@@ -439,7 +439,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3735020897250383586
+--- !u!114 &3037761554357897497
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -448,9 +448,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3713327988858702710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8f7505f1ce9de64d8edf9aae3c9a285, type: 3}
+  m_Script: {fileID: 11500000, guid: 53fd8d08058ccb243b8443674dd7a9e5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerWaypointProgress
+  m_EditorClassIdentifier: Assembly-CSharp::AICarController
+  physics: {fileID: 0}
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -484,8 +485,33 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  waypointReachDistance: 15
-  currentWaypoint: 0
+  waypointReachDistance: 3
+  trackHalfWidth: 6
+  edgeMargin: 1.5
+  acceleration: 25
+  maxSpeed: 30
+  maxReverseSpeed: 8
+  braking: 30
+  naturalDeceleration: 4
+  steerFullAngle: 35
+  steeringResponse: 6
+  cornerGripUseRange: {x: 0.72, y: 0.92}
+  minimumCornerSpeed: 10
+  racingLineStrength: 0.5
+  minLookAhead: 4
+  maxLookAhead: 14
+  carLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  carWidth: 2
+  carLength: 3.5
+  sensorRadius: 16
+  laneChangeSpeed: 4
+  skillRange: {x: 0.92, y: 1}
+  aggressionRange: {x: 0.2, y: 1}
+  maxStartReaction: 0.5
+  enableMistakes: 1
+  alignToTrackOnStart: 0
 --- !u!1 &8219006315224390610
 GameObject:
   m_ObjectHideFlags: 0

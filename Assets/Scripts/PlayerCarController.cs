@@ -5,21 +5,53 @@ public class PlayerCarController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    [Header("Física (compartilhada com a IA)")]
+    [Tooltip("Arraste o asset CarPhysicsProfile. Se vazio, usa valores padrão.")]
+    [SerializeField] private CarPhysicsProfile physics;
+
     [Header("Engine")]
     [SerializeField] private float acceleration = 25f;
     [SerializeField] private float maxSpeed = 30f;
     [SerializeField] private float reverseSpeed = 8f;
 
     [Header("Braking")]
-    [SerializeField] private float braking = 30f;
+    [SerializeField] private float braking = 16f;
     [SerializeField] private float naturalDeceleration = 4f;
+    [Tooltip("Tempo para o freio chegar na força total ao apertar S. Maior = mais progressivo.")]
+    [SerializeField] private float brakeRampTime = 0.35f;
+    [Tooltip("Abaixo dessa velocidade o freio perde força aos poucos, evitando a parada seca.")]
+    [SerializeField] private float brakeSoftStopSpeed = 4f;
+
+    private float brakePedal;
 
     [Header("Steering")]
-    [SerializeField] private float steering = 180f;
-    [SerializeField] private float lowSpeedSteering = 0.5f;
+    [Tooltip("Velocidade com que o volante vira (teclado). Maior = mais responsivo. 100 = instantâneo.")]
+    [SerializeField] private float steeringResponse = 10f;
 
-    [Header("Tire Grip")]
-    [SerializeField] private float lateralGrip = 5f;
+    [Header("Launch Slip (derrapada na largada / arrancada)")]
+    [SerializeField] private bool enableLaunchSlip = true;
+    [Tooltip("Só derrapa se a velocidade estiver abaixo disso ao acelerar.")]
+    [SerializeField] private float slipTriggerSpeed = 2f;
+    [Tooltip("O carro precisa estar abaixo disso (sem acelerar) para 'armar' a derrapada.")]
+    [SerializeField] private float slipRearmSpeed = 1f;
+    [Tooltip("Força da rabeada (graus/s de pico).")]
+    [SerializeField] private float slipYawKick = 140f;
+    [Tooltip("Rapidez do balanço da traseira (rad/s).")]
+    [SerializeField] private float slipFrequency = 9f;
+    [Tooltip("Rapidez com que a rabeada se acalma.")]
+    [SerializeField] private float slipDamping = 2.5f;
+    [SerializeField] private float slipDuration = 1.4f;
+    [Tooltip("Fração do grip que sobra no auge da derrapada (menor = desliza mais).")]
+    [Range(0.05f, 1f)]
+    [SerializeField] private float slipGripFraction = 0.3f;
+    [Tooltip("Quanto da aceleração se perde patinando (0 a 1).")]
+    [Range(0f, 1f)]
+    [SerializeField] private float wheelspinTractionLoss = 0.3f;
+    [Tooltip("Tempo mínimo entre duas derrapadas.")]
+    [SerializeField] private float slipCooldown = 2f;
+    [Tooltip("Quanto esterçar contra a rabeada ajuda a controlar (0 a 1).")]
+    [Range(0f, 1f)]
+    [SerializeField] private float counterSteerAssist = 0.5f;
 
     [Header("Engine Sound")]
     [SerializeField] private AudioSource engineAudio;
@@ -30,98 +62,240 @@ public class PlayerCarController : MonoBehaviour
     [Header("Brake Sound")]
     [SerializeField] private AudioSource brakeAudio;
 
+    [Header("Skid Sound (opcional)")]
+    [SerializeField] private AudioSource skidAudio;
+
     private float throttleInput;
     private float steeringInput;
+    private float smoothedSteeringInput;
+
+    // ---------------- ESTADO DA DERRAPADA ----------------
+
+    private bool slipArmed = true;
+    private bool slipActive = false;
+    private float slipTime;
+    private float slipDir = 1f;
+    private float slipPower = 1f;
+    private float slipCooldownTimer;
+    private float slipEnvelope;
+
+    // ---------------- CONTROLE DA LARGADA ----------------
+
+    private bool raceStarted = false;
+
+    public void SetRaceStarted(bool started)
+    {
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        raceStarted = started;
+
+        if (!raceStarted)
+        {
+            throttleInput = 0f;
+            steeringInput = 0f;
+            smoothedSteeringInput = 0f;
+
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+
+            StopAccelerationSound();
+            EndSlip();
+        }
+
+        slipArmed = true;
+        slipCooldownTimer = 0f;
+    }
+
+    public bool IsRaceStarted()
+    {
+        return raceStarted;
+    }
+
+    // =========================================================
+    // AWAKE
+    // =========================================================
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (physics == null)
+            physics = CarPhysicsProfile.CreateDefault();
     }
+
+    // =========================================================
+    // INPUT
+    // =========================================================
 
     private void Update()
     {
         throttleInput = 0f;
         steeringInput = 0f;
 
-        // =========================
-        // ACELERAÇÃO
-        // =========================
+        if (!raceStarted)
+        {
+            StopAccelerationSound();
+            return;
+        }
 
-        if (Keyboard.current.wKey.isPressed)
+        var kb = Keyboard.current;
+        if (kb == null)
+            return;
+
+        if (kb.wKey.isPressed)
         {
             throttleInput = 1f;
 
             HandleAccelerationSound();
 
-            // Som de partida
-            // Toca somente quando W é pressionado
-            if (Keyboard.current.wKey.wasPressedThisFrame)
-            {
+            if (kb.wKey.wasPressedThisFrame)
                 PlayEngineStartSound();
-            }
         }
-
-        // =========================
-        // FREIO / RÉ
-        // =========================
-
-        else if (Keyboard.current.sKey.isPressed)
+        else if (kb.sKey.isPressed)
         {
             throttleInput = -1f;
 
             Vector2 forward = -transform.up;
+            float forwardSpeed = Vector2.Dot(rb.linearVelocity, forward);
 
-            float forwardSpeed = Vector2.Dot(
-                rb.linearVelocity,
-                forward
-            );
-
-            // Só toca o som de freio se o carro
-            // estiver andando para frente
-            if (forwardSpeed > 0.1f &&
-                Keyboard.current.sKey.wasPressedThisFrame)
-            {
+            if (forwardSpeed > 0.1f && kb.sKey.wasPressedThisFrame)
                 PlayBrakeSound();
-            }
 
-            // Para o som de aceleração
             StopAccelerationSound();
         }
-
-        // =========================
-        // NENHUM COMANDO
-        // =========================
-
         else
         {
             StopAccelerationSound();
         }
 
-        // =========================
-        // DIREÇÃO
-        // =========================
-
-        if (Keyboard.current.aKey.isPressed)
-        {
+        if (kb.aKey.isPressed)
             steeringInput = 1f;
-        }
-        else if (Keyboard.current.dKey.isPressed)
-        {
+        else if (kb.dKey.isPressed)
             steeringInput = -1f;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        HandleEngine();
-        ApplyNaturalDeceleration();
-        ApplyLateralGrip();
-        LimitSpeed();
-        ApplySteering();
     }
 
     // =========================================================
-    // SOM DE PARTIDA
+    // FÍSICA
+    // =========================================================
+
+    private void FixedUpdate()
+    {
+        float dt = Time.fixedDeltaTime;
+
+        if (!raceStarted)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            return;
+        }
+
+        smoothedSteeringInput = Mathf.MoveTowards(
+            smoothedSteeringInput,
+            steeringInput,
+            steeringResponse * dt
+        );
+
+        UpdateLaunchSlip(dt);
+
+        HandleEngine();
+        ApplyNaturalDeceleration();
+        physics.ApplyDrag(rb, dt);
+        ApplyLateralGrip(dt);
+        LimitSpeed();
+        ApplySteering(dt);
+    }
+
+    // Grip atual: cai ao frear forte, ao acelerar a fundo e durante a derrapada da largada
+    private float GetGripMultiplier()
+    {
+        Vector2 forward = -transform.up;
+        float forwardSpeed = Vector2.Dot(rb.linearVelocity, forward);
+
+        float brake = (throttleInput < 0f && forwardSpeed > 0.1f) ? 1f : 0f;
+        float throttle = throttleInput > 0f ? 1f : 0f;
+
+        float m = physics.GripMultiplier(throttle, brake);
+
+        return m * Mathf.Lerp(1f, slipGripFraction, slipEnvelope);
+    }
+
+    // =========================================================
+    // DERRAPADA NA LARGADA / ARRANCADA
+    // =========================================================
+
+    private void UpdateLaunchSlip(float dt)
+    {
+        if (slipCooldownTimer > 0f)
+            slipCooldownTimer -= dt;
+
+        float speed = rb.linearVelocity.magnitude;
+
+        if (throttleInput <= 0f && speed < slipRearmSpeed)
+            slipArmed = true;
+
+        if (enableLaunchSlip &&
+            !slipActive &&
+            slipArmed &&
+            slipCooldownTimer <= 0f &&
+            throttleInput > 0f &&
+            speed < slipTriggerSpeed)
+        {
+            StartSlip();
+        }
+
+        if (slipActive)
+        {
+            slipTime += dt;
+
+            if (slipTime >= slipDuration)
+                EndSlip();
+            else
+                slipEnvelope = Mathf.Exp(-slipTime * slipDamping);
+        }
+    }
+
+    private void StartSlip()
+    {
+        slipActive = true;
+        slipArmed = false;
+        slipTime = 0f;
+        slipEnvelope = 1f;
+        slipDir = Random.value < 0.5f ? -1f : 1f;
+        slipPower = Random.Range(0.8f, 1.2f);
+        slipCooldownTimer = slipCooldown;
+
+        if (skidAudio != null)
+        {
+            skidAudio.loop = false;
+            skidAudio.Stop();
+            skidAudio.Play();
+        }
+    }
+
+    private void EndSlip()
+    {
+        slipActive = false;
+        slipEnvelope = 0f;
+        slipTime = 0f;
+    }
+
+    private float GetSlipYawRate()
+    {
+        if (!slipActive)
+            return 0f;
+
+        float rate = slipDir * slipPower * slipYawKick * slipEnvelope *
+                     Mathf.Sin(slipTime * slipFrequency);
+
+        if (smoothedSteeringInput * rate < 0f)
+            rate *= 1f - counterSteerAssist * Mathf.Abs(smoothedSteeringInput);
+
+        return rate;
+    }
+
+    // =========================================================
+    // SONS
     // =========================================================
 
     private void PlayEngineStartSound()
@@ -133,10 +307,6 @@ public class PlayerCarController : MonoBehaviour
         engineAudio.Play();
     }
 
-    // =========================================================
-    // SOM DE ACELERAÇÃO
-    // =========================================================
-
     private void HandleAccelerationSound()
     {
         if (accelerationAudio == null)
@@ -145,9 +315,7 @@ public class PlayerCarController : MonoBehaviour
         accelerationAudio.loop = true;
 
         if (!accelerationAudio.isPlaying)
-        {
             accelerationAudio.Play();
-        }
     }
 
     private void StopAccelerationSound()
@@ -156,14 +324,8 @@ public class PlayerCarController : MonoBehaviour
             return;
 
         if (accelerationAudio.isPlaying)
-        {
             accelerationAudio.Stop();
-        }
     }
-
-    // =========================================================
-    // SOM DE FREIO
-    // =========================================================
 
     private void PlayBrakeSound()
     {
@@ -176,58 +338,48 @@ public class PlayerCarController : MonoBehaviour
     }
 
     // =========================================================
-    // MOTOR / FÍSICA
+    // MOTOR / FREIO
     // =========================================================
 
     private void HandleEngine()
     {
-        // A frente REAL da sprite é para baixo
         Vector2 forward = -transform.up;
+        float forwardSpeed = Vector2.Dot(rb.linearVelocity, forward);
 
-        float forwardSpeed = Vector2.Dot(
-            rb.linearVelocity,
-            forward
+        // Pedal de freio progressivo (sobe ao apertar S, solta ao largar)
+        bool isBraking = throttleInput < 0f && forwardSpeed > 0.1f;
+        brakePedal = Mathf.MoveTowards(
+            brakePedal,
+            isBraking ? 1f : 0f,
+            Time.fixedDeltaTime / Mathf.Max(0.01f, brakeRampTime)
         );
-
-        // =========================
-        // ACELERANDO
-        // =========================
 
         if (throttleInput > 0f)
         {
             if (forwardSpeed < maxSpeed)
             {
-                rb.AddForce(forward * acceleration);
+                float traction = 1f - wheelspinTractionLoss * slipEnvelope;
+                rb.AddForce(forward * acceleration * traction);
             }
 
             return;
         }
 
-        // =========================
-        // FREIO / RÉ
-        // =========================
-
         if (throttleInput < 0f)
         {
-            // Ainda está andando para frente -> freia
             if (forwardSpeed > 0.1f)
             {
-                rb.AddForce(-forward * braking);
+                // Perde força nos últimos metros, sem "trancar" o carro de uma vez
+                float softStop = Mathf.Lerp(0.35f, 1f, Mathf.Clamp01(forwardSpeed / brakeSoftStopSpeed));
+                rb.AddForce(-forward * braking * brakePedal * softStop);
             }
-            // Parado ou andando para trás -> ré
             else
             {
                 if (forwardSpeed > -reverseSpeed)
-                {
                     rb.AddForce(-forward * acceleration);
-                }
             }
         }
     }
-
-    // =========================================================
-    // DESACELERAÇÃO NATURAL
-    // =========================================================
 
     private void ApplyNaturalDeceleration()
     {
@@ -241,127 +393,54 @@ public class PlayerCarController : MonoBehaviour
         }
     }
 
-    // =========================================================
-    // LIMITE DE VELOCIDADE
-    // =========================================================
-
     private void LimitSpeed()
     {
         Vector2 forward = -transform.up;
+        Vector2 left = new Vector2(-forward.y, forward.x);
 
-        Vector2 forwardVelocity =
-            forward *
-            Vector2.Dot(rb.linearVelocity, forward);
+        float f = Vector2.Dot(rb.linearVelocity, forward);
+        float l = Vector2.Dot(rb.linearVelocity, left);
 
-        Vector2 lateralVelocity =
-            transform.right *
-            Vector2.Dot(rb.linearVelocity, transform.right);
+        f = Mathf.Clamp(f, -reverseSpeed, maxSpeed);
 
-        float signedForwardSpeed =
-            Vector2.Dot(rb.linearVelocity, forward);
-
-        // =========================
-        // LIMITE PARA FRENTE
-        // =========================
-
-        if (signedForwardSpeed > maxSpeed)
-        {
-            forwardVelocity = forward * maxSpeed;
-        }
-
-        // =========================
-        // LIMITE PARA RÉ
-        // =========================
-
-        if (signedForwardSpeed < -reverseSpeed)
-        {
-            forwardVelocity = -forward * reverseSpeed;
-        }
-
-        rb.linearVelocity =
-            forwardVelocity +
-            lateralVelocity;
+        rb.linearVelocity = forward * f + left * l;
     }
 
     // =========================================================
     // DIREÇÃO
     // =========================================================
 
-    private void ApplySteering()
+    private void ApplySteering(float dt)
     {
         float speed = rb.linearVelocity.magnitude;
+        float yaw = 0f;
 
-        if (speed <= 0.1f)
+        if (speed > 0.1f)
         {
-            return;
+            float dir = smoothedSteeringInput;
+
+            Vector2 forward = -transform.up;
+            float forwardSpeed = Vector2.Dot(rb.linearVelocity, forward);
+
+            // Correção da direção na ré
+            if (forwardSpeed < -0.1f)
+                dir *= -1f;
+
+            yaw = physics.GetYawRate(dir, speed, maxSpeed, GetGripMultiplier());
         }
 
-        float speedFactor =
-            Mathf.Clamp01(speed / maxSpeed);
+        // A rabeada é somada no mesmo MoveRotation (funciona mesmo parado)
+        yaw += GetSlipYawRate();
 
-        float steeringFactor =
-            Mathf.Lerp(
-                lowSpeedSteering,
-                1f,
-                speedFactor
-            );
-
-        float steeringDirection =
-            steeringInput;
-
-        // =========================
-        // CORREÇÃO DA DIREÇÃO NA RÉ
-        // =========================
-
-        Vector2 forward = -transform.up;
-
-        float forwardSpeed =
-            Vector2.Dot(
-                rb.linearVelocity,
-                forward
-            );
-
-        if (forwardSpeed < -0.1f)
-        {
-            steeringDirection *= -1f;
-        }
-
-        float steeringAmount =
-            steeringDirection *
-            steering *
-            steeringFactor *
-            Time.fixedDeltaTime;
-
-        rb.MoveRotation(
-            rb.rotation + steeringAmount
-        );
+        rb.MoveRotation(rb.rotation + yaw * dt);
     }
 
     // =========================================================
     // ADERÊNCIA LATERAL
     // =========================================================
 
-    private void ApplyLateralGrip()
+    private void ApplyLateralGrip(float dt)
     {
-        Vector2 forward = -transform.up;
-
-        Vector2 forwardVelocity =
-            forward *
-            Vector2.Dot(
-                rb.linearVelocity,
-                forward
-            );
-
-        Vector2 lateralVelocity =
-            transform.right *
-            Vector2.Dot(
-                rb.linearVelocity,
-                transform.right
-            );
-
-        rb.linearVelocity =
-            forwardVelocity +
-            lateralVelocity /
-            (1f + lateralGrip * Time.fixedDeltaTime);
+        physics.ApplyGrip(rb, -transform.up, dt, GetGripMultiplier());
     }
 }

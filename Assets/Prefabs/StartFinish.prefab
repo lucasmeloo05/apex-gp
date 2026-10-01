@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 72981883833114356}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 91, y: 19.9, z: 0}
+  m_LocalPosition: {x: 4.094612, y: 40.389828, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -92,4 +92,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LapController
   totalLaps: 3
-  maxRaceTime: 90
+  maxRaceTime: 180
+  finishDelay: 3
