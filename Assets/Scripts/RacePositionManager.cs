@@ -179,7 +179,7 @@ public class RacePositionManager : MonoBehaviour
     private float ProgressOf(Tracker t)
     {
         if (lapController != null && lapController.HasFinished(t.go))
-            return 1e9f - lapController.GetFinishPosition(t.go);
+            return 100000f - lapController.GetFinishPosition(t.go);
 
         return t.progress;
     }

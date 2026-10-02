@@ -222,11 +222,29 @@ public class LapController : MonoBehaviour
         // COMPLETOU MAIS UMA VOLTA
         // =====================================================
 
+        // Se já estava na última volta, este cruzamento é a chegada
+        if (data.currentLap >= totalLaps)
+        {
+            Debug.Log(
+                GetCarName(car) +
+                " completou a volta " +
+                data.currentLap +
+                "/" +
+                totalLaps +
+                " | Tempo: " +
+                raceTimer.ToString("F2") +
+                "s"
+            );
+
+            FinishCar(car);
+            return;
+        }
+
         data.currentLap++;
 
         Debug.Log(
             GetCarName(car) +
-            " completou a volta " +
+            " iniciou a volta " +
             data.currentLap +
             "/" +
             totalLaps +
@@ -234,15 +252,6 @@ public class LapController : MonoBehaviour
             raceTimer.ToString("F2") +
             "s"
         );
-
-        // =====================================================
-        // TERMINOU AS VOLTAS
-        // =====================================================
-
-        if (data.currentLap >= totalLaps)
-        {
-            FinishCar(car);
-        }
     }
 
     // =========================================================
