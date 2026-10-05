@@ -5,36 +5,33 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Painéis")]
     public GameObject mainPanel;
-    public GameObject trackPanel;
-    public GameObject optionsPanel;
+    public GameObject[] allPanels; // MainPanel, PlayPanel, TrackPanel, OptionsPanel, CommandsPanel
 
     void Start()
     {
         ShowMain();
     }
 
+    // Abre um painel e esconde todos os outros
+    public void OpenPanel(GameObject panel)
+    {
+        foreach (GameObject p in allPanels)
+            p.SetActive(p == panel);
+    }
+
     public void ShowMain()
     {
-        mainPanel.SetActive(true);
-        trackPanel.SetActive(false);
-        optionsPanel.SetActive(false);
-    }
-
-    public void OnPlayClicked()
-    {
-        mainPanel.SetActive(false);
-        trackPanel.SetActive(true);
-    }
-
-    public void OnOptionsClicked()
-    {
-        mainPanel.SetActive(false);
-        optionsPanel.SetActive(true);
+        OpenPanel(mainPanel);
     }
 
     public void OnBackClicked()
     {
         ShowMain();
+    }
+
+    public void OnCareerClicked()
+    {
+        Debug.Log("Modo Carreira: em desenvolvimento");
     }
 
     public void OnExitClicked()
@@ -47,13 +44,23 @@ public class MainMenu : MonoBehaviour
 #endif
     }
 
+    // Track 1
     public void OnTrack1Clicked()
     {
         SceneManager.LoadScene("BraTest");
     }
 
+    // Track 2
     public void OnTrack2Click()
     {
         SceneManager.LoadScene("ItaTest");
+    }
+
+    // Para as outras pistas:
+    // o nome da cena pode ser definido diretamente
+    // no On Click() do botão.
+    public void LoadTrack(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
