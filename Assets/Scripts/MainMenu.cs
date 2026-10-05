@@ -56,6 +56,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("ItaTest");
     }
 
+    // Track 3
+    public void OnTrack3Click()
+    {
+        SceneManager.LoadScene("MonzaTest");
+    }
+
     // Para as outras pistas:
     // o nome da cena pode ser definido diretamente
     // no On Click() do botão.
