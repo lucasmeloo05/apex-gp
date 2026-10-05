@@ -51,4 +51,9 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("BraTest");
     }
+
+    public void OnTrack2Click()
+    {
+        SceneManager.LoadScene("ItaTest");
+    }
 }
