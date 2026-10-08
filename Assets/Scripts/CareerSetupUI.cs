@@ -81,6 +81,6 @@ public class CareerSetupUI : MonoBehaviour
             "Voltas: " + laps
         );
 
-        SceneManager.LoadScene("BraTest");
+        LoadingController.Instance.LoadGame("BraTest");
     }
 }

@@ -7676,6 +7676,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 1010600812689620855}
     m_Modifications:
     - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.54509807
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1010600812689620856}
@@ -7765,7 +7777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7694425001894089285, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7904,6 +7916,8 @@ MonoBehaviour:
   raceResultPanel: {fileID: 1582856755}
   title: {fileID: 234300682}
   resultsText: {fileID: 1733100370}
+  championshipTitle: {fileID: 0}
+  championshipText: {fileID: 0}
   nextRaceButton: {fileID: 1223015730}
   forceCanvasOnTop: 1
   resultCanvasSortOrder: 100

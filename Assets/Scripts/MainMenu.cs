@@ -52,25 +52,25 @@ public class MainMenu : MonoBehaviour
     // Track 1
     public void OnTrack1Clicked()
     {
-        SceneManager.LoadScene("BraTest");
+        LoadingController.Instance.LoadGame("BraTest");
     }
 
     // Track 2
     public void OnTrack2Click()
     {
-        SceneManager.LoadScene("ItaTest");
+        LoadingController.Instance.LoadGame("ItaTest");
     }
 
     // Track 3
     public void OnTrack3Click()
     {
-        SceneManager.LoadScene("MonzaTest");
+        LoadingController.Instance.LoadGame("MonzaTest");
     }
 
     // Track 4
     public void OnTrack4Click()
     {
-        SceneManager.LoadScene("AdTest");
+        LoadingController.Instance.LoadGame("AdTest");
     }
 
     // Para as outras pistas:
@@ -78,6 +78,6 @@ public class MainMenu : MonoBehaviour
     // no On Click() do botão.
     public void LoadTrack(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        LoadingController.Instance.LoadGame("AdTest");
     }
 }
