@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -49,35 +48,62 @@ public class MainMenu : MonoBehaviour
 #endif
     }
 
+    // =========================================================
+    // MODO NORMAL
+    // =========================================================
+
     // Track 1
     public void OnTrack1Clicked()
     {
+        ResetCareerForNormalRace();
         LoadingController.Instance.LoadGame("BraTest");
     }
 
     // Track 2
     public void OnTrack2Click()
     {
+        ResetCareerForNormalRace();
         LoadingController.Instance.LoadGame("ItaTest");
     }
 
     // Track 3
     public void OnTrack3Click()
     {
+        ResetCareerForNormalRace();
         LoadingController.Instance.LoadGame("MonzaTest");
     }
 
     // Track 4
     public void OnTrack4Click()
     {
+        ResetCareerForNormalRace();
         LoadingController.Instance.LoadGame("AdTest");
     }
 
-    // Para as outras pistas:
-    // o nome da cena pode ser definido diretamente
-    // no On Click() do botão.
+    // =========================================================
+    // RESET DA CARREIRA AO ENTRAR NO MODO NORMAL
+    // =========================================================
+
+    private void ResetCareerForNormalRace()
+    {
+        if (CareerManager.Instance != null)
+        {
+            CareerManager.Instance.ResetCareer();
+
+            Debug.Log(
+                "[MainMenu] Carreira resetada. " +
+                "Iniciando corrida no modo normal."
+            );
+        }
+    }
+
+    // =========================================================
+    // OUTRAS PISTAS
+    // =========================================================
+
     public void LoadTrack(string sceneName)
     {
-        LoadingController.Instance.LoadGame("AdTest");
+        ResetCareerForNormalRace();
+        LoadingController.Instance.LoadGame(sceneName);
     }
 }

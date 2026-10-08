@@ -135,6 +135,11 @@ public class CareerManager : MonoBehaviour
     // 2 = terceira corrida
     public int CurrentRace => currentRace;
 
+    public bool IsCareerActive =>
+    !string.IsNullOrWhiteSpace(playerName) &&
+    drivers != null &&
+    drivers.Count > 0;
+
     public List<DriverData> Drivers => drivers;
 
     public List<RaceResult> LastRaceResults => lastRaceResults;

@@ -8584,7 +8584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2206920729106005945, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: maxRaceTime
-      value: 360
+      value: 1800
       objectReference: {fileID: 0}
     - target: {fileID: 2963831829711952466, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: m_LocalPosition.x

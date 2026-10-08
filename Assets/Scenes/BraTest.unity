@@ -1432,6 +1432,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 184808681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &288561345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8219006315224390610, guid: b118181a22707d74290effc361550c32, type: 3}
+  m_PrefabInstance: {fileID: 1502081235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &288561346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288561345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  carSpriteRenderer: {fileID: 288561347}
+  apexSprite: {fileID: 3325125422660447056, guid: 73a8747575f03d942a66072085ffb6f9, type: 3}
+  drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
+  xeuSprite: {fileID: -8529135716905826031, guid: bb368112a0347744fb560acd50e0b476, type: 3}
+  chibaSprite: {fileID: -188081687972461049, guid: c25d2aa06b713334490f26884797d9c0, type: 3}
+  driverName: 
+--- !u!212 &288561347 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5053589656393243865, guid: b118181a22707d74290effc361550c32, type: 3}
+  m_PrefabInstance: {fileID: 1502081235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &328839888 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2584157046046925952, guid: 32be3b6ac28f7254cacc994d8f6fa3df, type: 3}
@@ -1961,6 +1989,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8853096
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4378338
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.09986143
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0043303967
+      objectReference: {fileID: 0}
     - target: {fileID: 8219006315224390610, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -2472,7 +2516,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.09986143, y: -0.0043303967}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2482,7 +2526,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8853096, y: 2.4378338}
   m_EdgeRadius: 0
 --- !u!4 &470224950
 Transform:
@@ -4302,6 +4346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1007040836}
   - component: {fileID: 1007040837}
+  - component: {fileID: 1007040838}
   m_Layer: 6
   m_Name: CarVisual
   m_TagString: Untagged
@@ -4383,6 +4428,24 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1007040838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007040835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  carSpriteRenderer: {fileID: 1007040837}
+  apexSprite: {fileID: 3325125422660447056, guid: 728e4c63eae5d804f8f7450e17a0cb76, type: 3}
+  drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
+  xeuSprite: {fileID: -8529135716905826031, guid: bb368112a0347744fb560acd50e0b476, type: 3}
+  chibaSprite: {fileID: -188081687972461049, guid: c25d2aa06b713334490f26884797d9c0, type: 3}
+  driverName: 
 --- !u!1 &1020027595
 GameObject:
   m_ObjectHideFlags: 0
@@ -5108,6 +5171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105225042}
   - component: {fileID: 1105225043}
+  - component: {fileID: 1105225044}
   m_Layer: 6
   m_Name: CarVisual
   m_TagString: Untagged
@@ -5189,6 +5253,24 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1105225044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105225041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  carSpriteRenderer: {fileID: 1105225043}
+  apexSprite: {fileID: 3325125422660447056, guid: 728e4c63eae5d804f8f7450e17a0cb76, type: 3}
+  drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
+  xeuSprite: {fileID: -8529135716905826031, guid: bb368112a0347744fb560acd50e0b476, type: 3}
+  chibaSprite: {fileID: -188081687972461049, guid: c25d2aa06b713334490f26884797d9c0, type: 3}
+  driverName: 
 --- !u!1 &1175263285
 GameObject:
   m_ObjectHideFlags: 0
@@ -5485,6 +5567,22 @@ PrefabInstance:
     - target: {fileID: 5192473040999911602, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6609267
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Size.y
+      value: 2.4373746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.0551136
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.009618044
       objectReference: {fileID: 0}
     - target: {fileID: 8219006315224390610, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
       propertyPath: m_Layer
@@ -6001,7 +6099,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0551136, y: -0.009618044}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -6011,7 +6109,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6609267, y: 2.4373746}
   m_EdgeRadius: 0
 --- !u!4 &1421560405
 Transform:
@@ -6397,7 +6495,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8219006315224390610, guid: b118181a22707d74290effc361550c32, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 288561346}
   m_SourcePrefab: {fileID: 100100000, guid: b118181a22707d74290effc361550c32, type: 3}
 --- !u!1 &1506528223
 GameObject:
@@ -6409,6 +6510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1506528224}
   - component: {fileID: 1506528225}
+  - component: {fileID: 1506528226}
   m_Layer: 6
   m_Name: CarVisual
   m_TagString: Untagged
@@ -6490,6 +6592,24 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1506528226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506528223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  carSpriteRenderer: {fileID: 1506528225}
+  apexSprite: {fileID: 3325125422660447056, guid: 728e4c63eae5d804f8f7450e17a0cb76, type: 3}
+  drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
+  xeuSprite: {fileID: -8529135716905826031, guid: bb368112a0347744fb560acd50e0b476, type: 3}
+  chibaSprite: {fileID: -188081687972461049, guid: c25d2aa06b713334490f26884797d9c0, type: 3}
+  driverName: 
 --- !u!1 &1516462887
 GameObject:
   m_ObjectHideFlags: 0
@@ -6546,6 +6666,10 @@ PrefabInstance:
     - target: {fileID: 2206920729106005945, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: totalLaps
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206920729106005945, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
+      propertyPath: maxRaceTime
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 2963831829711952466, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6807,6 +6931,22 @@ PrefabInstance:
     - target: {fileID: 5192473040999911602, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7534178
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Size.y
+      value: 2.3122387
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.07109293
+      objectReference: {fileID: 0}
+    - target: {fileID: 6106215063006902309, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.110435724
       objectReference: {fileID: 0}
     - target: {fileID: 8219006315224390610, guid: 5bb6cbb4b9ac52d429e192f7efb23fd9, type: 3}
       propertyPath: m_Layer
@@ -7319,7 +7459,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.07109293, y: -0.110435724}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -7329,7 +7469,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7534178, y: 2.3122387}
   m_EdgeRadius: 0
 --- !u!4 &1679499239
 Transform:

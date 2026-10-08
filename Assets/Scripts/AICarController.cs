@@ -98,6 +98,21 @@ public class AICarController : MonoBehaviour
     public void SetCareerDriverName(string driverName)
     {
         careerDriverName = driverName;
+
+        CarTeamVisual teamVisual =
+            GetComponentInChildren<CarTeamVisual>(true);
+
+        if (teamVisual != null)
+        {
+            teamVisual.SetDriverName(driverName);
+        }
+        else
+        {
+            Debug.LogWarning(
+                "[AICarController] CarTeamVisual não encontrado em " +
+                gameObject.name
+            );
+        }
     }
 
     // ---------------- ESTADO ----------------
