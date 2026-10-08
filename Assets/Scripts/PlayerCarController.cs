@@ -149,8 +149,11 @@ public class PlayerCarController : MonoBehaviour
 
             HandleAccelerationSound();
 
-            if (kb.wKey.wasPressedThisFrame)
+            if (kb.wKey.wasPressedThisFrame &&
+                rb.linearVelocity.magnitude < 0.5f)
+            {
                 PlayEngineStartSound();
+            }
         }
         else if (kb.sKey.isPressed)
         {
