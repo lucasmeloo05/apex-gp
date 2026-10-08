@@ -4954,9 +4954,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1191558258112659653, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -725
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191558258112659653, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 346
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645590190394987680, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 771
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241996752611721775, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -712
+      objectReference: {fileID: 0}
     - target: {fileID: 3012645598369249126, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
       propertyPath: m_Name
       value: RaceHUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785216239588453993, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -729
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785216239588453993, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 249
       objectReference: {fileID: 0}
     - target: {fileID: 6435481465765409857, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
       propertyPath: m_Pivot.x
@@ -6933,6 +6957,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1370323350}
     m_Modifications:
+    - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.54509807
+      objectReference: {fileID: 0}
+    - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.85882354
+      objectReference: {fileID: 0}
     - target: {fileID: 2100343477009824388, guid: ab02ec45ab07ed840bcf7c01e9b7fd41, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

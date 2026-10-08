@@ -1449,6 +1449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  isPlayerCar: 0
   carSpriteRenderer: {fileID: 288561347}
   apexSprite: {fileID: 3325125422660447056, guid: 73a8747575f03d942a66072085ffb6f9, type: 3}
   drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
@@ -4440,6 +4441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  isPlayerCar: 0
   carSpriteRenderer: {fileID: 1007040837}
   apexSprite: {fileID: 3325125422660447056, guid: 728e4c63eae5d804f8f7450e17a0cb76, type: 3}
   drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
@@ -5265,6 +5267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  isPlayerCar: 0
   carSpriteRenderer: {fileID: 1105225043}
   apexSprite: {fileID: 3325125422660447056, guid: 728e4c63eae5d804f8f7450e17a0cb76, type: 3}
   drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
@@ -6604,6 +6607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  isPlayerCar: 0
   carSpriteRenderer: {fileID: 1506528225}
   apexSprite: {fileID: 3325125422660447056, guid: 728e4c63eae5d804f8f7450e17a0cb76, type: 3}
   drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
@@ -8164,9 +8168,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1191558258112659653, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -774
+      objectReference: {fileID: 0}
+    - target: {fileID: 1191558258112659653, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 339
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645590190394987680, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 763
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241996752611721775, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -748
+      objectReference: {fileID: 0}
     - target: {fileID: 3012645598369249126, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
       propertyPath: m_Name
       value: RaceHUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785216239588453993, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -780
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785216239588453993, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 268
       objectReference: {fileID: 0}
     - target: {fileID: 6435481465765409857, guid: 1f1a36a74e27a6845a4409b836338c66, type: 3}
       propertyPath: m_Pivot.x

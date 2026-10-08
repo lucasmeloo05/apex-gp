@@ -122,6 +122,9 @@ public class AICarController : MonoBehaviour
     private bool canDrive;
     private float startDelay;
 
+    // Vácuo (slipstream): adicionado automaticamente se não existir
+    private SlipstreamEffect slipstream;
+
     // cache da pista
     private int n;
     private Vector2[] wpPos;
@@ -197,6 +200,11 @@ public class AICarController : MonoBehaviour
 
         if (physics == null)
             physics = CarPhysicsProfile.CreateDefault();
+
+        slipstream = GetComponent<SlipstreamEffect>();
+
+        if (slipstream == null)
+            slipstream = gameObject.AddComponent<SlipstreamEffect>();
 
         skill = Random.Range(skillRange.x, skillRange.y);
         skillNorm = Mathf.InverseLerp(skillRange.x, skillRange.y, skill);
@@ -414,7 +422,11 @@ public class AICarController : MonoBehaviour
         Vector2 forward = GetForward();
         float speed = rb.linearVelocity.magnitude;
         float forwardSpeed = Vector2.Dot(rb.linearVelocity, forward);
-        float personalMax = maxSpeed * skill * SpeedMultiplier;
+
+        // Velocidade máxima pessoal, já com o bônus do vácuo
+        float personalMax =
+            maxSpeed * skill * SpeedMultiplier +
+            (slipstream != null ? slipstream.SpeedBonus : 0f);
 
         UpdateWaypoint();
         TrackWaypointProgress(dt);
@@ -1082,7 +1094,10 @@ public class AICarController : MonoBehaviour
         if (diff > 0.3f)
         {
             lastThrottle = Mathf.Clamp01(diff / 2f);
-            rb.AddForce(forward * acceleration * lastThrottle);
+
+            float draft = slipstream != null ? slipstream.AccelMultiplier : 1f;
+
+            rb.AddForce(forward * acceleration * lastThrottle * draft);
         }
         else if (diff < -0.3f)
         {

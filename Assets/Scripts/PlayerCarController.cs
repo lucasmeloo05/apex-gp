@@ -69,6 +69,9 @@ public class PlayerCarController : MonoBehaviour
     private float steeringInput;
     private float smoothedSteeringInput;
 
+    // Vácuo (slipstream): adicionado automaticamente se não existir
+    private SlipstreamEffect slipstream;
+
     // ---------------- ESTADO DA DERRAPADA ----------------
 
     private bool slipArmed = true;
@@ -122,6 +125,11 @@ public class PlayerCarController : MonoBehaviour
 
         if (physics == null)
             physics = CarPhysicsProfile.CreateDefault();
+
+        slipstream = GetComponent<SlipstreamEffect>();
+
+        if (slipstream == null)
+            slipstream = gameObject.AddComponent<SlipstreamEffect>();
     }
 
     // =========================================================
@@ -150,7 +158,7 @@ public class PlayerCarController : MonoBehaviour
             HandleAccelerationSound();
 
             if (kb.wKey.wasPressedThisFrame &&
-                rb.linearVelocity.magnitude < 0.5f)
+    rb.linearVelocity.magnitude < 0.5f)
             {
                 PlayEngineStartSound();
             }
@@ -207,6 +215,12 @@ public class PlayerCarController : MonoBehaviour
         ApplyLateralGrip(dt);
         LimitSpeed();
         ApplySteering(dt);
+    }
+
+    // Velocidade máxima atual, já com o bônus do vácuo
+    private float CurrentTopSpeed()
+    {
+        return maxSpeed + (slipstream != null ? slipstream.SpeedBonus : 0f);
     }
 
     // Grip atual: cai ao frear forte, ao acelerar a fundo e durante a derrapada da largada
@@ -359,10 +373,12 @@ public class PlayerCarController : MonoBehaviour
 
         if (throttleInput > 0f)
         {
-            if (forwardSpeed < maxSpeed)
+            if (forwardSpeed < CurrentTopSpeed())
             {
                 float traction = 1f - wheelspinTractionLoss * slipEnvelope;
-                rb.AddForce(forward * acceleration * traction);
+                float draft = slipstream != null ? slipstream.AccelMultiplier : 1f;
+
+                rb.AddForce(forward * acceleration * traction * draft);
             }
 
             return;
@@ -404,7 +420,7 @@ public class PlayerCarController : MonoBehaviour
         float f = Vector2.Dot(rb.linearVelocity, forward);
         float l = Vector2.Dot(rb.linearVelocity, left);
 
-        f = Mathf.Clamp(f, -reverseSpeed, maxSpeed);
+        f = Mathf.Clamp(f, -reverseSpeed, CurrentTopSpeed());
 
         rb.linearVelocity = forward * f + left * l;
     }
