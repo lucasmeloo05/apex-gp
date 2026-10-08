@@ -10,15 +10,15 @@ public class LapController : MonoBehaviour
     [Header("Final da Corrida")]
     [SerializeField] private float finishDelay = 3f;
 
+    [Header("Configuração da Carreira")]
+    [SerializeField] private int totalCarsInRace = 8;
+
     private class CarRaceData
     {
         public int currentLap = 0;
-
         public bool hasStarted = false;
         public bool hasFinished = false;
-
         public float lastCrossingTime = -999f;
-
         public int finishPosition = 0;
     }
 
@@ -84,6 +84,35 @@ public class LapController : MonoBehaviour
         return totalLaps;
     }
 
+    public int GetFinishedCarsCount()
+    {
+        int count = 0;
+
+        foreach (CarRaceData data in cars.Values)
+        {
+            if (data.hasFinished)
+                count++;
+        }
+
+        return count;
+    }
+
+    // =========================================================
+    // IDENTIFICAÇÃO DO CARRO (ignora componentes desativados)
+    // =========================================================
+
+    private bool IsAI(GameObject car)
+    {
+        AICarController a = car.GetComponent<AICarController>();
+        return a != null && a.isActiveAndEnabled;
+    }
+
+    private bool IsPlayerCar(GameObject car)
+    {
+        PlayerCarController p = car.GetComponent<PlayerCarController>();
+        return p != null && p.isActiveAndEnabled;
+    }
+
     // =========================================================
     // INÍCIO DA CORRIDA
     // =========================================================
@@ -96,10 +125,54 @@ public class LapController : MonoBehaviour
         raceStarted = true;
         raceTimer = 0f;
 
-        Debug.Log("================================");
-        Debug.Log("🏁 CORRIDA INICIADA!");
-        Debug.Log("🏁 VOLTAS: " + totalLaps);
-        Debug.Log("================================");
+        // Reinicia o sistema de posições
+        nextFinishPosition = 1;
+        cars.Clear();
+
+        // Descobre quantas IAs ATIVAS existem na cena
+        AICarController[] aiCars =
+            FindObjectsByType<AICarController>(
+                FindObjectsSortMode.None
+            );
+
+        int aiCount = 0;
+
+        foreach (AICarController a in aiCars)
+        {
+            if (a.isActiveAndEnabled)
+                aiCount++;
+        }
+
+        totalCarsInRace = 1 + aiCount;
+
+        Debug.Log(
+            "===================================="
+        );
+
+        Debug.Log(
+            "[LapController] START RACE | Instance ID: " +
+            GetInstanceID() +
+            " | próxima posição: " +
+            nextFinishPosition
+        );
+
+        Debug.Log(
+            "[LapController] Carros encontrados: " +
+            totalCarsInRace
+        );
+
+        Debug.Log(
+            "🏁 CORRIDA INICIADA!"
+        );
+
+        Debug.Log(
+            "🏁 VOLTAS: " +
+            totalLaps
+        );
+
+        Debug.Log(
+            "===================================="
+        );
     }
 
     // =========================================================
@@ -128,8 +201,14 @@ public class LapController : MonoBehaviour
         PlayerCarController player =
             other.GetComponentInParent<PlayerCarController>();
 
+        if (player != null && !player.isActiveAndEnabled)
+            player = null;
+
         AICarController ai =
             other.GetComponentInParent<AICarController>();
+
+        if (ai != null && !ai.isActiveAndEnabled)
+            ai = null;
 
         if (player == null && ai == null)
             return;
@@ -268,13 +347,45 @@ public class LapController : MonoBehaviour
         if (data.hasFinished)
             return;
 
+        // =====================================================
+        // ATRIBUIÇÃO DA POSIÇÃO
+        // =====================================================
+
         data.hasFinished = true;
 
         data.finishPosition = nextFinishPosition;
 
         nextFinishPosition++;
 
-        Debug.Log("================================");
+        // =====================================================
+        // DEBUG DA POSIÇÃO
+        // =====================================================
+
+        Debug.Log(
+            "[LapController] FINISH | Instance ID: " +
+            GetInstanceID() +
+            " | Carro: " +
+            car.name +
+            " | Posição atribuída: " +
+            data.finishPosition +
+            " | Próxima posição: " +
+            nextFinishPosition
+        );
+
+        Debug.Log(
+            "[LapController] Total finalizados: " +
+            GetFinishedCarsCount() +
+            "/" +
+            totalCarsInRace
+        );
+
+        // =====================================================
+        // INFORMAÇÕES DA CHEGADA
+        // =====================================================
+
+        Debug.Log(
+            "================================"
+        );
 
         Debug.Log(
             "🏁 " +
@@ -294,13 +405,25 @@ public class LapController : MonoBehaviour
             " segundos"
         );
 
-        Debug.Log("================================");
+        Debug.Log(
+            "================================"
+        );
+
+        // =====================================================
+        // PLAYER (verifica primeiro: o jogador tem prioridade)
+        // =====================================================
+
+        if (IsPlayerCar(car))
+        {
+            FinishPlayer(car);
+            return;
+        }
 
         // =====================================================
         // IA
         // =====================================================
 
-        if (car.GetComponent<AICarController>() != null)
+        if (IsAI(car))
         {
             Debug.Log(
                 "🤖 IA terminou em " +
@@ -308,16 +431,7 @@ public class LapController : MonoBehaviour
                 "º lugar."
             );
 
-            return;
-        }
-
-        // =====================================================
-        // PLAYER
-        // =====================================================
-
-        if (car.GetComponent<PlayerCarController>() != null)
-        {
-            FinishPlayer(car);
+            CheckRaceCompletion();
         }
     }
 
@@ -330,19 +444,23 @@ public class LapController : MonoBehaviour
         if (raceFinished)
             return;
 
-        raceFinished = true;
-
         int position = cars[player].finishPosition;
 
-        Debug.Log("================================");
+        Debug.Log(
+            "================================"
+        );
 
         if (position == 1)
         {
-            Debug.Log("🏆 VITÓRIA!");
+            Debug.Log(
+                "🏆 VITÓRIA!"
+            );
         }
         else
         {
-            Debug.Log("🏁 CORRIDA TERMINADA!");
+            Debug.Log(
+                "🏁 CORRIDA TERMINADA!"
+            );
         }
 
         Debug.Log(
@@ -357,7 +475,58 @@ public class LapController : MonoBehaviour
             " segundos"
         );
 
-        Debug.Log("================================");
+        Debug.Log(
+            "================================"
+        );
+
+        CheckRaceCompletion();
+    }
+
+    // =========================================================
+    // VERIFICA SE TODOS TERMINARAM
+    // =========================================================
+
+    private void CheckRaceCompletion()
+    {
+        if (raceFinished)
+            return;
+
+        int finishedCount = GetFinishedCarsCount();
+
+        Debug.Log(
+            "[LapController] CHECK COMPLETION | " +
+            finishedCount +
+            "/" +
+            totalCarsInRace +
+            " carros terminaram."
+        );
+
+        if (finishedCount < totalCarsInRace)
+        {
+            Debug.Log(
+                "[LapController] A corrida continua."
+            );
+
+            return;
+        }
+
+        raceFinished = true;
+
+        Debug.Log(
+            "===================================="
+        );
+
+        Debug.Log(
+            "🏁 TODOS OS CARROS TERMINARAM!"
+        );
+
+        Debug.Log(
+            "🏁 CORRIDA ENCERRADA."
+        );
+
+        Debug.Log(
+            "===================================="
+        );
 
         Invoke(
             nameof(StopRace),
@@ -376,9 +545,17 @@ public class LapController : MonoBehaviour
 
         raceFinished = true;
 
-        Debug.Log("================================");
-        Debug.Log("⏱️ TEMPO ESGOTADO!");
-        Debug.Log("❌ DERROTA!");
+        Debug.Log(
+            "================================"
+        );
+
+        Debug.Log(
+            "⏱️ TEMPO ESGOTADO!"
+        );
+
+        Debug.Log(
+            "❌ DERROTA!"
+        );
 
         Debug.Log(
             "Tempo máximo de " +
@@ -386,7 +563,9 @@ public class LapController : MonoBehaviour
             " segundos atingido."
         );
 
-        Debug.Log("================================");
+        Debug.Log(
+            "================================"
+        );
 
         Invoke(
             nameof(StopRace),
@@ -402,9 +581,17 @@ public class LapController : MonoBehaviour
     {
         Time.timeScale = 0f;
 
-        Debug.Log("================================");
-        Debug.Log("🏁 CORRIDA ENCERRADA.");
-        Debug.Log("================================");
+        Debug.Log(
+            "================================"
+        );
+
+        Debug.Log(
+            "🏁 CORRIDA ENCERRADA."
+        );
+
+        Debug.Log(
+            "================================"
+        );
     }
 
     // =========================================================
@@ -413,14 +600,14 @@ public class LapController : MonoBehaviour
 
     private string GetCarName(GameObject car)
     {
-        if (car.GetComponent<PlayerCarController>() != null)
+        if (IsPlayerCar(car))
         {
             return "PLAYER";
         }
 
-        if (car.GetComponent<AICarController>() != null)
+        if (IsAI(car))
         {
-            return "IA";
+            return car.GetComponent<AICarController>().CareerDriverName;
         }
 
         return car.name;

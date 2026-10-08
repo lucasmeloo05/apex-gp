@@ -5,7 +5,9 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Painéis")]
     public GameObject mainPanel;
-    public GameObject[] allPanels; // MainPanel, PlayPanel, TrackPanel, OptionsPanel, CommandsPanel
+    public GameObject careerPanel;
+    public GameObject[] allPanels;
+    // MainPanel, PlayPanel, TrackPanel, OptionsPanel, CommandsPanel, CareerPanel
 
     void Start()
     {
@@ -16,7 +18,10 @@ public class MainMenu : MonoBehaviour
     public void OpenPanel(GameObject panel)
     {
         foreach (GameObject p in allPanels)
-            p.SetActive(p == panel);
+        {
+            if (p != null)
+                p.SetActive(p == panel);
+        }
     }
 
     public void ShowMain()
@@ -31,7 +36,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnCareerClicked()
     {
-        Debug.Log("Modo Carreira: em desenvolvimento");
+        OpenPanel(careerPanel);
     }
 
     public void OnExitClicked()
@@ -60,6 +65,12 @@ public class MainMenu : MonoBehaviour
     public void OnTrack3Click()
     {
         SceneManager.LoadScene("MonzaTest");
+    }
+
+    // Track 4
+    public void OnTrack4Click()
+    {
+        SceneManager.LoadScene("AdTest");
     }
 
     // Para as outras pistas:

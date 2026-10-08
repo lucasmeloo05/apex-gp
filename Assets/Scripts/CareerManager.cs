@@ -10,6 +10,7 @@ public class CareerManager : MonoBehaviour
 
     public static CareerManager Instance { get; private set; }
 
+
     // =========================================================
     // EQUIPES
     // =========================================================
@@ -21,6 +22,7 @@ public class CareerManager : MonoBehaviour
         ScuderiaImperio,
         ChibaRacing
     }
+
 
     // =========================================================
     // DADOS DO PILOTO
@@ -41,6 +43,7 @@ public class CareerManager : MonoBehaviour
         }
     }
 
+
     // =========================================================
     // DADOS DA CORRIDA
     // =========================================================
@@ -60,6 +63,7 @@ public class CareerManager : MonoBehaviour
         }
     }
 
+
     // =========================================================
     // DADOS DA CARREIRA
     // =========================================================
@@ -70,6 +74,7 @@ public class CareerManager : MonoBehaviour
     [SerializeField] private int lapsPerRace = 5;
 
     [Header("Campeonato")]
+    [Tooltip("0 = primeira corrida, 1 = segunda, 2 = terceira.")]
     [SerializeField] private int currentRace = 0;
 
     [SerializeField]
@@ -77,6 +82,28 @@ public class CareerManager : MonoBehaviour
 
     [SerializeField]
     private List<RaceResult> lastRaceResults = new List<RaceResult>();
+
+
+    // =========================================================
+    // PISTAS DO CAMPEONATO
+    // =========================================================
+
+    private readonly string[] raceScenes =
+    {
+        "BraTest",
+        "ItaTest",
+        "MonzaTest",
+        "AdTest"
+    };
+
+    private readonly string[] raceNames =
+    {
+        "GP Brasil",
+        "GP Itália",
+        "GP Monza",
+        "Gp Abu Dhabi"
+    };
+
 
     // =========================================================
     // PONTUAÇÃO
@@ -94,6 +121,7 @@ public class CareerManager : MonoBehaviour
         4   // 8º
     };
 
+
     // =========================================================
     // PROPRIEDADES PÚBLICAS
     // =========================================================
@@ -101,11 +129,16 @@ public class CareerManager : MonoBehaviour
     public string PlayerName => playerName;
     public Team PlayerTeam => playerTeam;
     public int LapsPerRace => lapsPerRace;
+
+    // 0 = primeira corrida
+    // 1 = segunda corrida
+    // 2 = terceira corrida
     public int CurrentRace => currentRace;
 
     public List<DriverData> Drivers => drivers;
 
     public List<RaceResult> LastRaceResults => lastRaceResults;
+
 
     // =========================================================
     // AWAKE
@@ -124,6 +157,7 @@ public class CareerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+
     // =========================================================
     // INICIAR CARREIRA
     // =========================================================
@@ -139,14 +173,14 @@ public class CareerManager : MonoBehaviour
         // Limita as voltas entre 3 e 10
         lapsPerRace = Mathf.Clamp(laps, 3, 10);
 
-        // Primeira corrida
+        // Começa na primeira corrida
         currentRace = 0;
 
         // Limpa dados antigos
         drivers.Clear();
         lastRaceResults.Clear();
 
-        // Cria os pilotos
+        // Cria os 8 pilotos
         CreateDrivers();
 
         Debug.Log("====================================");
@@ -155,6 +189,15 @@ public class CareerManager : MonoBehaviour
         Debug.Log("Piloto: " + playerName);
         Debug.Log("Equipe: " + GetTeamName(playerTeam));
         Debug.Log("Voltas por corrida: " + lapsPerRace);
+        Debug.Log("------------------------------------");
+
+        Debug.Log(
+            "Próxima corrida: " +
+            GetCurrentRaceName() +
+            " | Cena: " +
+            GetCurrentRaceScene()
+        );
+
         Debug.Log("------------------------------------");
 
         foreach (DriverData driver in drivers)
@@ -168,6 +211,7 @@ public class CareerManager : MonoBehaviour
 
         Debug.Log("====================================");
     }
+
 
     // =========================================================
     // CRIAR PILOTOS
@@ -189,6 +233,7 @@ public class CareerManager : MonoBehaviour
             Team.DrowGP
         );
 
+
         // -----------------------------------------------------
         // XEU MOTORSPORT
         // -----------------------------------------------------
@@ -203,6 +248,7 @@ public class CareerManager : MonoBehaviour
             Team.XeuMotorsport
         );
 
+
         // -----------------------------------------------------
         // SCUDERIA IMPERIO
         // -----------------------------------------------------
@@ -216,6 +262,7 @@ public class CareerManager : MonoBehaviour
             "Victor Bianchi",
             Team.ScuderiaImperio
         );
+
 
         // -----------------------------------------------------
         // CHIBA RACING
@@ -232,6 +279,7 @@ public class CareerManager : MonoBehaviour
         );
     }
 
+
     // =========================================================
     // ADICIONAR PILOTO NORMAL
     // =========================================================
@@ -242,6 +290,7 @@ public class CareerManager : MonoBehaviour
             new DriverData(name, team)
         );
     }
+
 
     // =========================================================
     // ADICIONAR PILOTO OU JOGADOR
@@ -263,6 +312,7 @@ public class CareerManager : MonoBehaviour
         }
     }
 
+
     // =========================================================
     // PONTOS DE UMA POSIÇÃO
     // =========================================================
@@ -275,13 +325,14 @@ public class CareerManager : MonoBehaviour
         return pointsTable[position - 1];
     }
 
+
     // =========================================================
     // REGISTRAR RESULTADO DA CORRIDA
     // =========================================================
 
     public void RegisterRaceResults(List<RaceResult> results)
     {
-        if (results == null)
+        if (results == null || results.Count == 0)
             return;
 
         lastRaceResults.Clear();
@@ -298,10 +349,11 @@ public class CareerManager : MonoBehaviour
             }
         }
 
-        currentRace++;
-
         Debug.Log("====================================");
-        Debug.Log("🏁 RESULTADO DA CORRIDA");
+        Debug.Log(
+            "🏁 RESULTADO - " +
+            GetCurrentRaceName()
+        );
         Debug.Log("====================================");
 
         foreach (RaceResult result in results)
@@ -316,8 +368,43 @@ public class CareerManager : MonoBehaviour
             );
         }
 
+        // A corrida terminou.
+        // Avançamos para a próxima corrida.
+        currentRace++;
+
+        Debug.Log("====================================");
+
+        if (IsChampionshipFinished())
+        {
+            Debug.Log("🏆 CAMPEONATO ENCERRADO!");
+            Debug.Log("====================================");
+
+            DriverData champion = GetChampion();
+
+            if (champion != null)
+            {
+                Debug.Log(
+                    "🏆 CAMPEÃO: " +
+                    champion.name +
+                    " | " +
+                    champion.points +
+                    " pontos"
+                );
+            }
+        }
+        else
+        {
+            Debug.Log(
+                "Próxima corrida: " +
+                GetCurrentRaceName() +
+                " | Cena: " +
+                GetCurrentRaceScene()
+            );
+        }
+
         Debug.Log("====================================");
     }
+
 
     // =========================================================
     // PROCURAR PILOTO
@@ -333,6 +420,17 @@ public class CareerManager : MonoBehaviour
 
         return null;
     }
+
+
+    // =========================================================
+    // PEGAR DADOS DO JOGADOR
+    // =========================================================
+
+    public DriverData GetPlayerDriver()
+    {
+        return GetDriver(playerName);
+    }
+
 
     // =========================================================
     // PEGAR NOME DA EQUIPE
@@ -359,19 +457,122 @@ public class CareerManager : MonoBehaviour
         }
     }
 
+
+    // =========================================================
+    // INFORMAÇÕES DAS CORRIDAS
+    // =========================================================
+
+    public int GetRaceCount()
+    {
+        return raceScenes.Length;
+    }
+
+
+    public int GetCurrentRaceNumber()
+    {
+        return currentRace + 1;
+    }
+
+
+    public string GetCurrentRaceScene()
+    {
+        if (IsChampionshipFinished())
+            return "";
+
+        return raceScenes[currentRace];
+    }
+
+
+    public string GetCurrentRaceName()
+    {
+        if (IsChampionshipFinished())
+            return "Campeonato encerrado";
+
+        return raceNames[currentRace];
+    }
+
+
+    public bool IsChampionshipFinished()
+    {
+        return currentRace >= raceScenes.Length;
+    }
+
+
     // =========================================================
     // NOVA CORRIDA
     // =========================================================
 
     public void StartNextRace()
     {
-        currentRace++;
+        if (IsChampionshipFinished())
+        {
+            Debug.Log("🏆 O campeonato já terminou.");
+            return;
+        }
 
         Debug.Log(
-            "🏁 Iniciando corrida " +
-            currentRace
+            "🏁 Preparando corrida " +
+            GetCurrentRaceNumber() +
+            "/" +
+            GetRaceCount() +
+            ": " +
+            GetCurrentRaceName()
+        );
+
+        Debug.Log(
+            "Cena: " +
+            GetCurrentRaceScene()
         );
     }
+
+
+    // =========================================================
+    // GRID INVERTIDO
+    // =========================================================
+
+    public List<DriverData> GetGridOrder(bool inverted)
+    {
+        List<DriverData> grid = new List<DriverData>(drivers);
+
+        if (inverted)
+            grid.Reverse();
+
+        return grid;
+    }
+
+
+    // =========================================================
+    // CLASSIFICAÇÃO DO CAMPEONATO
+    // =========================================================
+
+    public List<DriverData> GetChampionshipStandings()
+    {
+        List<DriverData> standings =
+            new List<DriverData>(drivers);
+
+        standings.Sort(
+            (a, b) => b.points.CompareTo(a.points)
+        );
+
+        return standings;
+    }
+
+
+    // =========================================================
+    // CAMPEÃO
+    // =========================================================
+
+    public DriverData GetChampion()
+    {
+        if (drivers == null || drivers.Count == 0)
+            return null;
+
+        List<DriverData> standings =
+            GetChampionshipStandings();
+
+        return standings[0];
+    }
+
 
     // =========================================================
     // RESETAR CARREIRA

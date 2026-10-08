@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MonzaTest.unity
     guid: c86a01d8cc128f14298c090c52d402ae
+  - enabled: 1
+    path: Assets/Scenes/AdTest.unity
+    guid: c28c0f3c17e666b4890f2a083ba971a8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

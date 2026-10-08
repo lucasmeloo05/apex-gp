@@ -507,6 +507,20 @@ MonoBehaviour:
   carLength: 3.5
   sensorRadius: 16
   laneChangeSpeed: 4
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  wallProbeLength: 10
+  wallSideProbe: 4
+  wallClearance: 2.5
+  stuckCheckTime: 2.5
+  stuckMinProgress: 3
+  waypointTimeout: 6
+  reverseAttemptsBeforeReset: 1
+  reverseDuration: 1.2
+  respawnSpeed: 8
+  respawnGhostTime: 2
+  ghostAlpha: 0.45
   skillRange: {x: 0.92, y: 1}
   aggressionRange: {x: 0.2, y: 1}
   maxStartReaction: 0.5

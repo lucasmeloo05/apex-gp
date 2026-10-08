@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -33,7 +34,7 @@ public class AICarController : MonoBehaviour
     [SerializeField] private float steeringResponse = 6f;
 
     [Header("Cornering")]
-    [Tooltip("Quanto do grip o piloto usa nas curvas (min = piloto cauteloso, max = no limite). Sorteado por carro segundo habilidade e agressividade.")]
+    [Tooltip("Quanto do grip o piloto usa nas curvas. Sorteado por carro segundo habilidade e agressividade.")]
     [SerializeField] private Vector2 cornerGripUseRange = new Vector2(0.72f, 0.92f);
     [SerializeField] private float minimumCornerSpeed = 10f;
     [Range(0f, 1f)]
@@ -41,13 +42,40 @@ public class AICarController : MonoBehaviour
     [SerializeField] private float minLookAhead = 4f;
     [SerializeField] private float maxLookAhead = 14f;
 
-    [Header("Sensores / Ultrapassagem")]
+    [Header("Sensores de carros / Ultrapassagem")]
     [Tooltip("Coloque os carros numa layer 'Car' e selecione aqui. Se vazio, detecta qualquer Rigidbody2D.")]
     [SerializeField] private LayerMask carLayers;
     [SerializeField] private float carWidth = 2f;
     [SerializeField] private float carLength = 3.5f;
     [SerializeField] private float sensorRadius = 16f;
     [SerializeField] private float laneChangeSpeed = 4f;
+
+    [Header("Sensores de parede")]
+    [Tooltip("Layer(s) dos muros (ex: TrackBounds). NÃO inclua a layer dos carros. Se vazio, o sensor de parede fica desligado.")]
+    [SerializeField] private LayerMask wallLayers;
+    [Tooltip("Alcance base do raio frontal (aumenta com a velocidade).")]
+    [SerializeField] private float wallProbeLength = 10f;
+    [Tooltip("Alcance dos raios laterais.")]
+    [SerializeField] private float wallSideProbe = 4f;
+    [Tooltip("Distância mínima que o carro tenta manter dos muros laterais.")]
+    [SerializeField] private float wallClearance = 2.5f;
+
+    [Header("Recuperação (anti-travamento)")]
+    [Tooltip("Janela de tempo para medir se o carro saiu do lugar.")]
+    [SerializeField] private float stuckCheckTime = 2.5f;
+    [Tooltip("Se andou menos que isso na janela, está preso.")]
+    [SerializeField] private float stuckMinProgress = 3f;
+    [Tooltip("Se ficou tanto tempo sem avançar de waypoint, está preso.")]
+    [SerializeField] private float waypointTimeout = 6f;
+    [Tooltip("Quantas vezes tenta dar ré antes de ser recolocado na pista.")]
+    [SerializeField] private int reverseAttemptsBeforeReset = 1;
+    [SerializeField] private float reverseDuration = 1.2f;
+    [Tooltip("Velocidade com que o carro volta à pista.")]
+    [SerializeField] private float respawnSpeed = 8f;
+    [Tooltip("Tempo atravessando outros carros após voltar à pista.")]
+    [SerializeField] private float respawnGhostTime = 2f;
+    [Range(0.1f, 1f)]
+    [SerializeField] private float ghostAlpha = 0.45f;
 
     [Header("Personalidade (sorteada por carro)")]
     [SerializeField] private Vector2 skillRange = new Vector2(0.92f, 1f);
@@ -61,6 +89,16 @@ public class AICarController : MonoBehaviour
 
     // Use de fora para rubber banding
     public float SpeedMultiplier { get; set; } = 1f;
+
+    [Header("Carreira")]
+    [SerializeField] private string careerDriverName;
+
+    public string CareerDriverName => careerDriverName;
+
+    public void SetCareerDriverName(string driverName)
+    {
+        careerDriverName = driverName;
+    }
 
     // ---------------- ESTADO ----------------
     private int currentWaypoint;
@@ -96,7 +134,7 @@ public class AICarController : MonoBehaviour
     private float overtakeSide;
     private float overtakeLane;
 
-    // sensores
+    // sensores de carros
     private readonly Collider2D[] scanBuffer = new Collider2D[32];
     private ContactFilter2D scanFilter;
     private bool blockerFound;
@@ -106,13 +144,33 @@ public class AICarController : MonoBehaviour
     private bool leftBlocked;
     private bool rightBlocked;
 
+    // sensores de parede
+    private float wallAhead = float.MaxValue;
+    private float wallLeft = float.MaxValue;
+    private float wallRight = float.MaxValue;
+
     // controle
     private float smoothedSteer;
-    private float stuckTimer;
-    private float reverseTimer;
     private float lastThrottle;
     private float lastBrake;
     private Vector2 debugLookPoint;
+
+    // recuperação
+    private float reverseTimer;
+    private int reverseAttempts;
+    private float stuckClock;
+    private Vector2 stuckAnchor;
+    private float waypointTimer;
+    private int lastSeenWaypoint = -1;
+
+    // modo fantasma
+    private bool ghostActive;
+    private float ghostTimer;
+    private float ghostExtra;
+    private Collider2D[] myColliders;
+    private readonly List<Collider2D> ghostPartners = new List<Collider2D>();
+    private SpriteRenderer[] sprites;
+    private Color[] spriteColors;
 
     // =========================================================
     // INICIALIZAÇÃO
@@ -129,7 +187,6 @@ public class AICarController : MonoBehaviour
         skillNorm = Mathf.InverseLerp(skillRange.x, skillRange.y, skill);
         aggression = Random.Range(aggressionRange.x, aggressionRange.y);
 
-        // quem é mais habilidoso e agressivo usa mais do limite do pneu nas curvas
         float boldness = Mathf.Clamp01(0.5f * aggression + 0.5f * skillNorm + Random.Range(-0.15f, 0.15f));
         cornerGripUse = Mathf.Lerp(cornerGripUseRange.x, cornerGripUseRange.y, boldness);
 
@@ -142,12 +199,25 @@ public class AICarController : MonoBehaviour
         if (carLayers.value != 0)
             scanFilter.SetLayerMask(carLayers);
 
+        myColliders = GetComponentsInChildren<Collider2D>();
+
+        sprites = GetComponentsInChildren<SpriteRenderer>(true);
+        spriteColors = new Color[sprites.Length];
+        for (int i = 0; i < sprites.Length; i++)
+            spriteColors[i] = sprites[i].color;
+
         CacheWaypoints();
     }
 
     private void Start()
     {
         FindStartingWaypoint();
+        lastSeenWaypoint = currentWaypoint;
+    }
+
+    private void OnDisable()
+    {
+        EndGhost();
     }
 
     public void SetWaypoints(Transform[] newWaypoints)
@@ -155,6 +225,7 @@ public class AICarController : MonoBehaviour
         waypoints = newWaypoints;
         CacheWaypoints();
         FindStartingWaypoint();
+        lastSeenWaypoint = currentWaypoint;
     }
 
     public void SetRaceStarted(bool started)
@@ -167,6 +238,7 @@ public class AICarController : MonoBehaviour
         if (started)
         {
             FindStartingWaypoint();
+            lastSeenWaypoint = currentWaypoint;
 
             if (n > 0)
             {
@@ -178,9 +250,12 @@ public class AICarController : MonoBehaviour
 
             startDelay = Random.Range(0f, maxStartReaction);
             smoothedSteer = 0f;
-            stuckTimer = 0f;
-            reverseTimer = 0f;
             overtakeTimer = 0f;
+
+            reverseTimer = 0f;
+            reverseAttempts = 0;
+            waypointTimer = 0f;
+            ResetStuckWindow();
         }
         else
         {
@@ -235,7 +310,6 @@ public class AICarController : MonoBehaviour
             }
         }
 
-        // suaviza: começa a frear um pouco antes e sai um pouco depois
         for (int i = 0; i < n; i++)
         {
             int p = (i - 1 + n) % n;
@@ -328,7 +402,10 @@ public class AICarController : MonoBehaviour
         float personalMax = maxSpeed * skill * SpeedMultiplier;
 
         UpdateWaypoint();
+        TrackWaypointProgress(dt);
         Scan();
+        ScanWalls(speed);
+        UpdateGhost(dt);
 
         float actualOffset = GetActualOffset();
 
@@ -338,6 +415,7 @@ public class AICarController : MonoBehaviour
         UpdateLane(dt, actualOffset, target);
 
         target = ApplyTraffic(target, speed);
+        target = ApplyWallSlowdown(target, speed);
 
         if (mistakeTimer > 0f)
             target *= 0.88f;
@@ -357,7 +435,9 @@ public class AICarController : MonoBehaviour
             target = Mathf.Lerp(target, slow, Mathf.InverseLerp(25f, 80f, headingError));
         }
 
-        UpdateStuck(dt, speed);
+        // Se foi recolocado na pista, encerra este frame (valores acima ficaram desatualizados)
+        if (UpdateStuck(dt))
+            return;
 
         Drive(target, forwardSpeed, forward);
         physics.ApplyDrag(rb, dt);
@@ -392,6 +472,21 @@ public class AICarController : MonoBehaviour
 
         if (dist <= waypointReachDistance || passed)
             currentWaypoint = (currentWaypoint + 1) % n;
+    }
+
+    // Avançou de waypoint? Então está progredindo: zera o cronômetro e as tentativas de ré
+    private void TrackWaypointProgress(float dt)
+    {
+        if (currentWaypoint != lastSeenWaypoint)
+        {
+            lastSeenWaypoint = currentWaypoint;
+            waypointTimer = 0f;
+            reverseAttempts = 0;
+        }
+        else
+        {
+            waypointTimer += dt;
+        }
     }
 
     private float GetActualOffset()
@@ -439,11 +534,9 @@ public class AICarController : MonoBehaviour
 
     private float PlanSpeed(float personalMax)
     {
-        // pilotos agressivos freiam mais tarde
         float brakeDecel = Mathf.Max(1f, braking / rb.mass) * Mathf.Lerp(0.6f, 0.9f, aggression);
         float planDistance = personalMax * personalMax / (2f * brakeDecel) + 10f;
 
-        // aceleração lateral que ESTE piloto se permite usar (o carro só aguenta physics.GripAcceleration)
         float gripBudget = physics.GripAcceleration * cornerGripUse * skill;
 
         float allowedNow = personalMax;
@@ -464,7 +557,6 @@ public class AICarController : MonoBehaviour
                 Mathf.Max(minimumCornerSpeed, Mathf.Sqrt(gripBudget / k))
             );
 
-            // velocidade máxima AGORA para chegar na curva a "cornerSpeed"
             float allowed = Mathf.Sqrt(cornerSpeed * cornerSpeed + 2f * brakeDecel * dist);
 
             if (allowed < allowedNow)
@@ -534,7 +626,7 @@ public class AICarController : MonoBehaviour
     }
 
     // =========================================================
-    // SENSORES
+    // SENSORES DE CARROS
     // =========================================================
 
     private void Scan()
@@ -577,7 +669,57 @@ public class AICarController : MonoBehaviour
     }
 
     // =========================================================
-    // FAIXA: linha de corrida + ultrapassagem
+    // SENSORES DE PAREDE
+    // =========================================================
+
+    private void ScanWalls(float speed)
+    {
+        wallAhead = float.MaxValue;
+        wallLeft = float.MaxValue;
+        wallRight = float.MaxValue;
+
+        if (wallLayers.value == 0)
+            return;
+
+        Vector2 f = GetForward();
+        Vector2 l = new Vector2(-f.y, f.x);
+
+        wallAhead = WallCast(f, wallProbeLength + speed * 0.35f);
+
+        wallLeft = Mathf.Min(
+            WallCast(l, wallSideProbe),
+            WallCast((f + l).normalized, wallSideProbe * 1.6f));
+
+        wallRight = Mathf.Min(
+            WallCast(-l, wallSideProbe),
+            WallCast((f - l).normalized, wallSideProbe * 1.6f));
+    }
+
+    private float WallCast(Vector2 dir, float length)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rb.position, dir, length, wallLayers);
+        return hit.collider != null ? hit.distance : float.MaxValue;
+    }
+
+    // Muro logo à frente e o carro rápido demais? Alivia antes de bater
+    private float ApplyWallSlowdown(float target, float speed)
+    {
+        if (wallAhead == float.MaxValue)
+            return target;
+
+        float reaction = speed * 0.45f;
+
+        if (wallAhead < reaction)
+        {
+            float safe = Mathf.Max(minimumCornerSpeed * 0.7f, wallAhead / 0.45f);
+            target = Mathf.Min(target, safe);
+        }
+
+        return target;
+    }
+
+    // =========================================================
+    // FAIXA: linha de corrida + ultrapassagem + afastar de muros
     // =========================================================
 
     private void UpdateLane(float dt, float actualOffset, float ourTarget)
@@ -630,6 +772,13 @@ public class AICarController : MonoBehaviour
         if (overtakeTimer > 0f && overtakeSide != 0f)
             desired = overtakeLane;
 
+        // Muro perto: afasta a faixa desejada (esquerda = offset positivo)
+        if (wallLeft < wallClearance)
+            desired = Mathf.Min(desired, actualOffset - (wallClearance - wallLeft));
+
+        if (wallRight < wallClearance)
+            desired = Mathf.Max(desired, actualOffset + (wallClearance - wallRight));
+
         desired = Mathf.Clamp(desired, -maxOffset, maxOffset);
         laneOffset = Mathf.MoveTowards(laneOffset, desired, laneChangeSpeed * dt);
 
@@ -658,31 +807,243 @@ public class AICarController : MonoBehaviour
     }
 
     // =========================================================
-    // ANTI-TRAVAMENTO
+    // ANTI-TRAVAMENTO / RECUPERAÇÃO
     // =========================================================
 
-    private void UpdateStuck(float dt, float speed)
+    private void ResetStuckWindow()
     {
+        stuckClock = 0f;
+        stuckAnchor = rb != null ? rb.position : Vector2.zero;
+    }
+
+    // Retorna true se o carro foi recolocado na pista neste frame
+    private bool UpdateStuck(float dt)
+    {
+        // dando ré: só espera terminar
         if (reverseTimer > 0f)
         {
             reverseTimer -= dt;
-            stuckTimer = 0f;
-            return;
+            ResetStuckWindow();
+            return false;
         }
 
-        if (speed < 1f)
-        {
-            stuckTimer += dt;
+        // seguindo um carro mais lento que está andando: isso não é estar preso
+        bool followingTraffic = blockerFound && blockerSpeed > 3f && blockerFwd < 12f;
 
-            if (stuckTimer > 1.5f)
+        bool stuck = false;
+
+        stuckClock += dt;
+
+        if (stuckClock >= stuckCheckTime)
+        {
+            float moved = Vector2.Distance(rb.position, stuckAnchor);
+
+            if (moved < stuckMinProgress && !followingTraffic)
+                stuck = true;
+
+            ResetStuckWindow();
+        }
+
+        // muito tempo sem avançar de waypoint (raspando no muro, orbitando o waypoint...)
+        if (waypointTimer > waypointTimeout)
+            stuck = true;
+
+        if (!stuck)
+            return false;
+
+        waypointTimer = 0f;
+        ResetStuckWindow();
+
+        if (reverseAttempts < reverseAttemptsBeforeReset)
+        {
+            reverseAttempts++;
+            reverseTimer = reverseDuration;
+            return false;
+        }
+
+        ResetToTrack();
+        return true;
+    }
+
+    /// <summary>Recoloca o carro no centro da pista, alinhado com o sentido da corrida. Pode ser chamado de fora também.</summary>
+    public void ResetToTrack()
+    {
+        if (n == 0)
+            return;
+
+        int seg;
+        Vector2 p = ProjectOnCenterline(rb.position, out seg);
+
+        Vector2 dir = wpPos[(seg + 1) % n] - wpPos[seg];
+        dir = dir.sqrMagnitude > 0.0001f ? dir.normalized : Vector2.up;
+
+        float rot = Mathf.Atan2(dir.x, -dir.y) * Mathf.Rad2Deg;
+
+        transform.SetPositionAndRotation(p, Quaternion.Euler(0f, 0f, rot));
+        rb.position = p;
+        rb.rotation = rot;
+        rb.linearVelocity = dir * respawnSpeed;
+        rb.angularVelocity = 0f;
+
+        currentWaypoint = (seg + 1) % n;
+        lastSeenWaypoint = currentWaypoint;
+
+        laneOffset = 0f;
+        smoothedSteer = 0f;
+        overtakeTimer = 0f;
+        reverseTimer = 0f;
+        reverseAttempts = 0;
+        waypointTimer = 0f;
+        ResetStuckWindow();
+
+        BeginGhost();
+
+        Debug.Log(gameObject.name + " ficou preso e foi recolocado na pista.");
+    }
+
+    // Ponto mais próximo sobre a linha central (procura só perto do waypoint atual)
+    private Vector2 ProjectOnCenterline(Vector2 pos, out int seg)
+    {
+        float best = float.MaxValue;
+        Vector2 bestP = pos;
+        seg = ((currentWaypoint - 1) % n + n) % n;
+
+        for (int k = -4; k <= 2; k++)
+        {
+            int i = (((currentWaypoint + k) % n) + n) % n;
+            int next = (i + 1) % n;
+
+            Vector2 a = wpPos[i];
+            Vector2 ab = wpPos[next] - a;
+            float sqr = ab.sqrMagnitude;
+
+            float t = sqr > 0.0001f
+                ? Mathf.Clamp01(Vector2.Dot(pos - a, ab) / sqr)
+                : 0f;
+
+            Vector2 pt = a + ab * t;
+            float d = Vector2.Distance(pos, pt);
+
+            if (d < best)
             {
-                reverseTimer = 1f;
-                stuckTimer = 0f;
+                best = d;
+                bestP = pt;
+                seg = i;
             }
         }
-        else
+
+        return bestP;
+    }
+
+    // =========================================================
+    // MODO FANTASMA (atravessa outros carros após voltar à pista)
+    // =========================================================
+
+    private void BeginGhost()
+    {
+        EndGhost();
+
+        ghostActive = true;
+        ghostTimer = respawnGhostTime;
+        ghostExtra = 0f;
+
+        ghostPartners.Clear();
+
+        AICarController[] bots = FindObjectsByType<AICarController>(FindObjectsSortMode.None);
+        foreach (AICarController bot in bots)
         {
-            stuckTimer = 0f;
+            if (bot != this)
+                ghostPartners.AddRange(bot.GetComponentsInChildren<Collider2D>());
+        }
+
+        PlayerCarController player = FindFirstObjectByType<PlayerCarController>();
+        if (player != null)
+            ghostPartners.AddRange(player.GetComponentsInChildren<Collider2D>());
+
+        foreach (Collider2D mine in myColliders)
+        {
+            foreach (Collider2D other in ghostPartners)
+            {
+                if (mine != null && other != null)
+                    Physics2D.IgnoreCollision(mine, other, true);
+            }
+        }
+
+        SetGhostVisual(true);
+    }
+
+    private void EndGhost()
+    {
+        if (!ghostActive)
+            return;
+
+        ghostActive = false;
+
+        if (myColliders != null)
+        {
+            foreach (Collider2D mine in myColliders)
+            {
+                foreach (Collider2D other in ghostPartners)
+                {
+                    if (mine != null && other != null)
+                        Physics2D.IgnoreCollision(mine, other, false);
+                }
+            }
+        }
+
+        ghostPartners.Clear();
+        SetGhostVisual(false);
+    }
+
+    private void UpdateGhost(float dt)
+    {
+        if (!ghostActive)
+            return;
+
+        ghostTimer -= dt;
+
+        if (ghostTimer > 0f)
+            return;
+
+        // só deixa de ser fantasma quando não há carro sobreposto (no máximo +3s)
+        ghostExtra += dt;
+
+        if (ghostExtra < 3f && OverlappingOtherCar())
+            return;
+
+        EndGhost();
+    }
+
+    private bool OverlappingOtherCar()
+    {
+        int count = Physics2D.OverlapCircle(rb.position, carLength * 0.7f, scanFilter, scanBuffer);
+
+        for (int i = 0; i < count; i++)
+        {
+            Rigidbody2D other = scanBuffer[i].attachedRigidbody;
+
+            if (other != null && other != rb)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void SetGhostVisual(bool on)
+    {
+        if (sprites == null)
+            return;
+
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            if (sprites[i] == null)
+                continue;
+
+            Color c = spriteColors[i];
+            if (on)
+                c.a *= ghostAlpha;
+
+            sprites[i].color = c;
         }
     }
 
@@ -726,7 +1087,6 @@ public class AICarController : MonoBehaviour
         Vector2 forward = GetForward();
         Vector2 left = new Vector2(-forward.y, forward.x);
 
-        // grip limitado (o carro escorrega se passar do limite)
         physics.ApplyGrip(rb, forward, dt, GetGripMultiplier());
 
         float f = Vector2.Dot(rb.linearVelocity, forward);
@@ -746,7 +1106,6 @@ public class AICarController : MonoBehaviour
         float targetSteer = Mathf.Clamp(angle / steerFullAngle, -1f, 1f);
         smoothedSteer = Mathf.MoveTowards(smoothedSteer, targetSteer, steeringResponse * dt);
 
-        // mesma regra do jogador: limitado pelo grip (understeer)
         float yaw = physics.GetYawRate(smoothedSteer, speed, maxSpeed, GetGripMultiplier());
 
         rb.MoveRotation(rb.rotation + yaw * dt);
@@ -767,5 +1126,17 @@ public class AICarController : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, sensorRadius);
+
+        if (wallLayers.value != 0)
+        {
+            Vector2 f = GetForward();
+            Vector2 l = new Vector2(-f.y, f.x);
+            Vector3 o = transform.position;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(o, o + (Vector3)(f * Mathf.Min(wallAhead, wallProbeLength)));
+            Gizmos.DrawLine(o, o + (Vector3)(l * Mathf.Min(wallLeft, wallSideProbe)));
+            Gizmos.DrawLine(o, o + (Vector3)(-l * Mathf.Min(wallRight, wallSideProbe)));
+        }
     }
 }
