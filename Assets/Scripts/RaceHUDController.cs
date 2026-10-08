@@ -15,7 +15,6 @@ public class RaceHUDController : MonoBehaviour
     [SerializeField] private RacePositionManager racePositionManager;
 
     [Header("Configuração")]
-    [SerializeField] private int totalLaps = 3;
     [SerializeField] private int totalCars = 8;
 
     private void Update()
@@ -36,6 +35,7 @@ public class RaceHUDController : MonoBehaviour
             return;
 
         int currentLap = 0;
+        int configuredLaps = 0;
 
         if (lapController != null)
         {
@@ -43,13 +43,16 @@ public class RaceHUDController : MonoBehaviour
                 lapController.GetCurrentLap(
                     playerRb.gameObject
                 );
+
+            configuredLaps =
+                lapController.GetTotalLaps();
         }
 
         lapText.text =
             "LAP " +
             currentLap +
             "/" +
-            totalLaps;
+            configuredLaps;
     }
 
     // =========================================================

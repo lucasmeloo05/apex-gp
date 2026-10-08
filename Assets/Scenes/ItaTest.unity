@@ -3473,6 +3473,8 @@ MonoBehaviour:
   raceResultPanel: {fileID: 466288710}
   title: {fileID: 466288709}
   resultsText: {fileID: 466288708}
+  championshipTitle: {fileID: 0}
+  championshipText: {fileID: 0}
   nextRaceButton: {fileID: 466288707}
   forceCanvasOnTop: 1
   resultCanvasSortOrder: 100
@@ -6377,6 +6379,10 @@ PrefabInstance:
     - target: {fileID: 2206920729106005945, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: totalLaps
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2206920729106005945, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
+      propertyPath: maxRaceTime
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 2963831829711952466, guid: 52604027c8b28e543b2837e41cf3eacc, type: 3}
       propertyPath: m_LocalPosition.x

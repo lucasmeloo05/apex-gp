@@ -49,35 +49,62 @@ public class MainMenu : MonoBehaviour
 #endif
     }
 
+    // =========================================================
+    // MODO NORMAL
+    // =========================================================
+
     // Track 1
     public void OnTrack1Clicked()
     {
+        ResetCareerForNormalRace();
         SceneManager.LoadScene("BraTest");
     }
 
     // Track 2
     public void OnTrack2Click()
     {
+        ResetCareerForNormalRace();
         SceneManager.LoadScene("ItaTest");
     }
 
     // Track 3
     public void OnTrack3Click()
     {
+        ResetCareerForNormalRace();
         SceneManager.LoadScene("MonzaTest");
     }
 
     // Track 4
     public void OnTrack4Click()
     {
+        ResetCareerForNormalRace();
         SceneManager.LoadScene("AdTest");
     }
 
-    // Para as outras pistas:
-    // o nome da cena pode ser definido diretamente
-    // no On Click() do botão.
+    // =========================================================
+    // RESET DA CARREIRA AO ENTRAR NO MODO NORMAL
+    // =========================================================
+
+    private void ResetCareerForNormalRace()
+    {
+        if (CareerManager.Instance != null)
+        {
+            CareerManager.Instance.ResetCareer();
+
+            Debug.Log(
+                "[MainMenu] Carreira resetada. " +
+                "Iniciando corrida no modo normal."
+            );
+        }
+    }
+
+    // =========================================================
+    // OUTRAS PISTAS
+    // =========================================================
+
     public void LoadTrack(string sceneName)
     {
+        ResetCareerForNormalRace();
         SceneManager.LoadScene(sceneName);
     }
 }

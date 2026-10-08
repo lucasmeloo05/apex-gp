@@ -48,6 +48,10 @@ public class RaceResultUI : MonoBehaviour
     private bool resultShown = false;
     private bool loadingNextScene = false;
 
+    // true = carreira
+    // false = modo normal
+    private bool isCareerMode = false;
+
     // =========================================================
     // START
     // =========================================================
@@ -59,10 +63,68 @@ public class RaceResultUI : MonoBehaviour
         lapController =
             FindFirstObjectByType<LapController>();
 
+        // -----------------------------------------------------
+        // DETECTA O MODO DE JOGO
+        // -----------------------------------------------------
+
+        isCareerMode =
+            career != null &&
+            career.IsCareerActive;
+
+        Debug.Log(
+            "[RaceResultUI] Modo detectado: " +
+            (isCareerMode ? "CARREIRA" : "NORMAL")
+        );
+
+        // -----------------------------------------------------
+        // MODO NORMAL
+        // -----------------------------------------------------
+
+        if (!isCareerMode)
+        {
+            raceIndexAtStart = 0;
+
+            raceNameAtStart =
+                SceneManager.GetActiveScene().name;
+
+            if (raceResultPanel != null)
+                raceResultPanel.SetActive(false);
+
+            if (championshipTitle != null)
+            {
+                championshipTitle.gameObject.SetActive(false);
+            }
+
+            if (championshipText != null)
+            {
+                championshipText.gameObject.SetActive(false);
+            }
+
+            if (nextRaceButton != null)
+            {
+                nextRaceButton.onClick.RemoveAllListeners();
+
+                nextRaceButton.onClick.AddListener(
+                    OnNextRaceClicked
+                );
+            }
+
+            Debug.Log(
+                "[RaceResultUI] Preparado para corrida normal."
+            );
+
+            return;
+        }
+
+        // -----------------------------------------------------
+        // MODO CARREIRA
+        // -----------------------------------------------------
+
         if (career == null)
         {
-            Debug.LogWarning(
-                "[RaceResultUI] CareerManager não encontrado."
+            Debug.LogError(
+                "[RaceResultUI] CareerManager não encontrado " +
+                "durante uma corrida de carreira."
             );
 
             return;
@@ -86,10 +148,6 @@ public class RaceResultUI : MonoBehaviour
         // -----------------------------------------------------
         // CLASSIFICAÇÃO FINAL
         // -----------------------------------------------------
-        //
-        // Esses objetos só existem no AdTest.
-        // Portanto, nas outras pistas podem ser null.
-        //
 
         if (championshipTitle != null)
             championshipTitle.gameObject.SetActive(false);
@@ -137,19 +195,6 @@ public class RaceResultUI : MonoBehaviour
         }
 
         // -----------------------------------------------------
-        // GARANTE CAREER MANAGER
-        // -----------------------------------------------------
-
-        if (career == null)
-        {
-            career =
-                CareerManager.Instance;
-
-            if (career == null)
-                return;
-        }
-
-        // -----------------------------------------------------
         // GARANTE LAP CONTROLLER
         // -----------------------------------------------------
 
@@ -168,6 +213,29 @@ public class RaceResultUI : MonoBehaviour
 
         if (!lapController.IsRaceFinished())
             return;
+
+        // =====================================================
+        // MODO NORMAL
+        // =====================================================
+
+        if (!isCareerMode)
+        {
+            ShowResult();
+            return;
+        }
+
+        // =====================================================
+        // MODO CARREIRA
+        // =====================================================
+
+        if (career == null)
+        {
+            career =
+                CareerManager.Instance;
+
+            if (career == null)
+                return;
+        }
 
         // -----------------------------------------------------
         // CAREER RACE CONTROLLER AINDA NÃO REGISTROU
@@ -210,7 +278,18 @@ public class RaceResultUI : MonoBehaviour
         // -----------------------------------------------------
 
         if (title != null)
-            title.text = raceNameAtStart;
+        {
+            if (isCareerMode)
+            {
+                title.text =
+                    raceNameAtStart;
+            }
+            else
+            {
+                title.text =
+                    "RESULTADO DA CORRIDA";
+            }
+        }
 
         // -----------------------------------------------------
         // RESULTADO DA CORRIDA
@@ -218,68 +297,140 @@ public class RaceResultUI : MonoBehaviour
 
         if (resultsText != null)
         {
-            List<CareerManager.RaceResult> results =
-                new List<CareerManager.RaceResult>(
-                    career.LastRaceResults
-                );
+            if (isCareerMode)
+            {
+                ShowCareerResults();
+            }
+            else
+            {
+                ShowNormalResult();
+            }
+        }
 
-            results.Sort(
-                (a, b) =>
-                    a.position.CompareTo(b.position)
+        // =====================================================
+        // CARREIRA
+        // =====================================================
+
+        if (isCareerMode)
+        {
+            bool isFinalRace =
+                career.IsChampionshipFinished();
+
+            ConfigureFinalChampionshipUI(
+                isFinalRace
             );
 
-            StringBuilder text =
-                new StringBuilder();
+            UpdateNextButton(
+                isFinalRace
+            );
 
-            foreach (
-                CareerManager.RaceResult result
-                in results
-            )
+            Debug.Log(
+                "[RaceResultUI] Resultado de carreira exibido: " +
+                raceNameAtStart
+            );
+
+            if (isFinalRace)
             {
-                text.AppendLine(
-                    result.position +
-                    "º  " +
-                    result.driverName +
-                    "    +" +
-                    result.points +
-                    " PTS"
+                Debug.Log(
+                    "[RaceResultUI] 🏆 ESTA FOI A ÚLTIMA CORRIDA."
                 );
             }
 
-            resultsText.text =
-                text.ToString();
+            return;
         }
 
-        // -----------------------------------------------------
-        // ÚLTIMA CORRIDA?
-        // -----------------------------------------------------
+        // =====================================================
+        // MODO NORMAL
+        // =====================================================
 
-        bool isFinalRace =
-            career.IsChampionshipFinished();
+        ConfigureFinalChampionshipUI(false);
 
-        ConfigureFinalChampionshipUI(
-            isFinalRace
-        );
-
-        // -----------------------------------------------------
-        // BOTÃO
-        // -----------------------------------------------------
-
-        UpdateNextButton(
-            isFinalRace
-        );
+        // No modo normal o botão sempre volta ao menu.
+        UpdateNextButton(true);
 
         Debug.Log(
-            "[RaceResultUI] Resultado exibido: " +
-            raceNameAtStart
+            "[RaceResultUI] Resultado do modo normal exibido."
+        );
+    }
+
+    // =========================================================
+    // RESULTADOS DA CARREIRA
+    // =========================================================
+
+    private void ShowCareerResults()
+    {
+        if (career == null ||
+            career.LastRaceResults == null)
+        {
+            return;
+        }
+
+        List<CareerManager.RaceResult> results =
+            new List<CareerManager.RaceResult>(
+                career.LastRaceResults
+            );
+
+        results.Sort(
+            (a, b) =>
+                a.position.CompareTo(b.position)
         );
 
-        if (isFinalRace)
+        StringBuilder text =
+            new StringBuilder();
+
+        foreach (
+            CareerManager.RaceResult result
+            in results
+        )
         {
-            Debug.Log(
-                "[RaceResultUI] 🏆 ESTA FOI A ÚLTIMA CORRIDA."
+            text.AppendLine(
+                result.position +
+                "º  " +
+                result.driverName +
+                "    +" +
+                result.points +
+                " PTS"
             );
         }
+
+        resultsText.text =
+            text.ToString();
+    }
+
+    // =========================================================
+    // RESULTADO DO MODO NORMAL
+    // =========================================================
+
+    private void ShowNormalResult()
+    {
+        if (lapController == null)
+            return;
+
+        // O LapController já sabe exatamente qual posição
+        // o PlayerCar recebeu. Não procuramos o PlayerCar
+        // novamente na cena.
+        int position =
+            lapController.GetPlayerFinishPosition();
+
+        if (position <= 0)
+        {
+            Debug.LogError(
+                "[RaceResultUI] Não foi possível obter " +
+                "a posição final do jogador."
+            );
+
+            return;
+        }
+
+        resultsText.text =
+            "VOCÊ TERMINOU EM\n" +
+            position +
+            "º LUGAR";
+
+        Debug.Log(
+            "[RaceResultUI] Posição final do jogador: " +
+            position
+        );
     }
 
     // =========================================================
@@ -332,10 +483,12 @@ public class RaceResultUI : MonoBehaviour
             )
             {
                 text.AppendLine(
-                    GetOrdinal(driverPosition: GetDriverPosition(
-                        standings,
-                        driver
-                    )) +
+                    GetOrdinal(
+                        GetDriverPosition(
+                            standings,
+                            driver
+                        )
+                    ) +
                     "  " +
                     driver.name +
                     "    " +
@@ -370,9 +523,11 @@ public class RaceResultUI : MonoBehaviour
         CareerManager.DriverData driver
     )
     {
-        for (int i = 0;
-             i < standings.Count;
-             i++)
+        for (
+            int i = 0;
+            i < standings.Count;
+            i++
+        )
         {
             if (standings[i] == driver)
                 return i + 1;
@@ -416,7 +571,8 @@ public class RaceResultUI : MonoBehaviour
             raceResultPanel != null)
         {
             Canvas canvas =
-                raceResultPanel.GetComponentInParent<Canvas>();
+                raceResultPanel
+                    .GetComponentInParent<Canvas>();
 
             if (canvas != null)
             {
@@ -443,7 +599,8 @@ public class RaceResultUI : MonoBehaviour
                     resultCanvasSortOrder;
 
                 if (root.GetComponent<
-                        GraphicRaycaster>() == null)
+                        GraphicRaycaster
+                    >() == null)
                 {
                     Debug.LogWarning(
                         "[RaceResultUI] O Canvas '" +
@@ -453,7 +610,8 @@ public class RaceResultUI : MonoBehaviour
                     );
 
                     root.gameObject.AddComponent<
-                        GraphicRaycaster>();
+                        GraphicRaycaster
+                    >();
                 }
             }
         }
@@ -465,14 +623,17 @@ public class RaceResultUI : MonoBehaviour
         if (disableHudRaycasts)
         {
             RaceHUDController hud =
-                FindFirstObjectByType<RaceHUDController>();
+                FindFirstObjectByType<
+                    RaceHUDController
+                >();
 
             if (hud != null)
             {
                 foreach (
                     Graphic g
                     in hud.GetComponentsInChildren<
-                        Graphic>(true)
+                        Graphic
+                    >(true)
                 )
                 {
                     g.raycastTarget =
@@ -554,6 +715,47 @@ public class RaceResultUI : MonoBehaviour
         Debug.Log(
             "[RaceResultUI] Botão acionado."
         );
+
+        // =====================================================
+        // MODO NORMAL
+        // =====================================================
+
+        if (!isCareerMode)
+        {
+            string menuScene =
+                "MenuApex";
+
+            if (!Application.CanStreamedLevelBeLoaded(
+                    menuScene))
+            {
+                Debug.LogError(
+                    "[RaceResultUI] A cena '" +
+                    menuScene +
+                    "' não está no Build Profile."
+                );
+
+                return;
+            }
+
+            loadingNextScene = true;
+
+            Debug.Log(
+                "[RaceResultUI] Corrida normal encerrada. " +
+                "Voltando ao menu."
+            );
+
+            Time.timeScale = 1f;
+
+            SceneManager.LoadScene(
+                menuScene
+            );
+
+            return;
+        }
+
+        // =====================================================
+        // CARREIRA
+        // =====================================================
 
         if (career == null)
         {

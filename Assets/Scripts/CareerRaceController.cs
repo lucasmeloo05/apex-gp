@@ -196,6 +196,17 @@ public class CareerRaceController : MonoBehaviour
 
     public void ConfigureCareerDrivers()
     {
+        if (CareerManager.Instance == null ||
+    !CareerManager.Instance.IsCareerActive)
+        {
+            Debug.Log(
+                "[CareerRaceController] Modo normal detectado. " +
+                "Configuração de carreira ignorada."
+            );
+
+            return;
+        }
+
         CareerManager career =
             CareerManager.Instance;
 

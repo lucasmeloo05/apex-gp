@@ -64,6 +64,19 @@ public class LapController : MonoBehaviour
         return cars[car].finishPosition;
     }
 
+    public int GetPlayerFinishPosition()
+    {
+        foreach (KeyValuePair<GameObject, CarRaceData> entry in cars)
+        {
+            if (IsPlayerCar(entry.Key))
+            {
+                return entry.Value.finishPosition;
+            }
+        }
+
+        return 0;
+    }
+
     public bool IsRaceStarted()
     {
         return raceStarted;
@@ -113,6 +126,19 @@ public class LapController : MonoBehaviour
         return p != null && p.isActiveAndEnabled;
     }
 
+    public void ConfigureCareerLaps()
+    {
+        if (CareerManager.Instance == null)
+            return;
+
+        totalLaps = CareerManager.Instance.LapsPerRace;
+
+        Debug.Log(
+            "[LapController] Voltas configuradas pela carreira: " +
+            totalLaps
+        );
+    }
+
     // =========================================================
     // INÍCIO DA CORRIDA
     // =========================================================
@@ -121,6 +147,20 @@ public class LapController : MonoBehaviour
     {
         if (raceStarted || raceFinished)
             return;
+
+        // ==========================================
+        // CONFIGURA VOLTAS DA CARREIRA
+        // ==========================================
+
+        if (CareerManager.Instance != null)
+        {
+            totalLaps = CareerManager.Instance.LapsPerRace;
+
+            Debug.Log(
+                "[LapController] Voltas configuradas pela carreira: " +
+                totalLaps
+            );
+        }
 
         raceStarted = true;
         raceTimer = 0f;

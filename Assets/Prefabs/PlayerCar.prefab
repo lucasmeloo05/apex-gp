@@ -73,7 +73,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.039444655, y: -0.04871118}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -83,7 +83,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.83694905, y: 2.4778287}
   m_EdgeRadius: 0
 --- !u!50 &2628507676363372844
 Rigidbody2D:
@@ -496,6 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5192473040999911602}
   - component: {fileID: 5053589656393243865}
+  - component: {fileID: 3902746595786004072}
   m_Layer: 6
   m_Name: CarVisual
   m_TagString: Untagged
@@ -577,3 +578,22 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3902746595786004072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219006315224390610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee8a1a56568b54b4d925fb60d354f504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarTeamVisual
+  isPlayerCar: 1
+  carSpriteRenderer: {fileID: 5053589656393243865}
+  apexSprite: {fileID: 3325125422660447056, guid: 728e4c63eae5d804f8f7450e17a0cb76, type: 3}
+  drowSprite: {fileID: 8033850328939118096, guid: 25f6fae34262adb479091a70da20457d, type: 3}
+  xeuSprite: {fileID: -8529135716905826031, guid: bb368112a0347744fb560acd50e0b476, type: 3}
+  chibaSprite: {fileID: -188081687972461049, guid: c25d2aa06b713334490f26884797d9c0, type: 3}
+  driverName: 
